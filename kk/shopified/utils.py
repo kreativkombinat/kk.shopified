@@ -21,6 +21,10 @@ def wipe_cart():
     return getUtility(IShoppingCartUtility).destroy(getSite())
 
 
+def update_cart():
+    return getUtility(IShoppingCartUtility).update(getSite())
+
+
 def redirect_to_checkout():
     site = getSite()
     request = getRequest()

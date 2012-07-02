@@ -1,8 +1,8 @@
 from five import grok
 from zope.interface import implements
 from zope.globalrequest import getRequest
+from zope.annotation.interfaces import IAttributeAnnotatable
 
-from plone.app.layout.navigation.interfaces import INavigationRoot
 from collective.beaker.interfaces import ISession
 
 from kk.shopified.interfaces import IShoppingCartUtility
@@ -31,7 +31,7 @@ class ShoppingCartUtility(grok.GlobalUtility):
 
 
 class ShoppingCart(object):
-    implements(IShoppingCart)
+    implements(IShoppingCart, IAttributeAnnotatable)
 
     def data(self):
         data = dict()
