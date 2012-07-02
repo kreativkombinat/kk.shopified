@@ -2,7 +2,8 @@ from zope.component import getUtility
 from zope.site.hooks import getSite
 from zope.globalrequest import getRequest
 from collective.beaker.interfaces import ISession
-from kk.shopified.cart import IShoppingCartUtility
+
+from kk.shopified.interfaces import IShoppingCartUtility
 
 
 def format_price(self, price):

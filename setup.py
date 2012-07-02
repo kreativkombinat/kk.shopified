@@ -26,6 +26,7 @@ setup(name='kk.shopified',
       install_requires=[
           'setuptools',
           'collective.beaker',
+          'five.grok',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

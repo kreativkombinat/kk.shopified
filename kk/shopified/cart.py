@@ -1,23 +1,12 @@
 from five import grok
-from zope.interface import Interface
 from zope.interface import implements
 from zope.globalrequest import getRequest
-#from getpaid.core.cart import ShoppingCart
+
+from plone.app.layout.navigation.interfaces import INavigationRoot
 from collective.beaker.interfaces import ISession
 
+from kk.shopified.interfaces import IShoppingCartUtility
 from kk.shopified.interfaces import IShoppingCart
-
-
-class IShoppingCartUtility(Interface):
-
-    def get(context):
-        """
-        Return the user's shopping cart or none if not found. If
-        no cart is available create a new one.
-        """
-
-    def destroy(context):
-        """ Remove the current user's cart from the session if it exists. """
 
 
 class ShoppingCartUtility(grok.GlobalUtility):
@@ -42,4 +31,8 @@ class ShoppingCartUtility(grok.GlobalUtility):
 
 
 class ShoppingCart(object):
-    grok.implements(IShoppingCart)
+    implements(IShoppingCart)
+
+    def data(self):
+        data = dict()
+        return data
