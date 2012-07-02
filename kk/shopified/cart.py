@@ -2,8 +2,10 @@ from five import grok
 from zope.interface import Interface
 from zope.interface import implements
 from zope.globalrequest import getRequest
-from getpaid.core.cart import ShoppingCart
+#from getpaid.core.cart import ShoppingCart
 from collective.beaker.interfaces import ISession
+
+from kk.shopified.interfaces import IShoppingCart
 
 
 class IShoppingCartUtility(Interface):
@@ -37,3 +39,7 @@ class ShoppingCartUtility(grok.GlobalUtility):
         if cart_id in session:
             del session[cart_id]
             session.save()
+
+
+class ShoppingCart(object):
+    grok.implements(IShoppingCart)
