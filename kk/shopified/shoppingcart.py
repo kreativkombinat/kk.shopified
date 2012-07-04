@@ -60,6 +60,8 @@ class ShoppingCartView(grok.View):
             info['title'] = product.Title()
             info['description'] = product.Description()
             info['price'] = format_price(product.price)
+            total = quantity * int(product.price)
+            info['price_total'] = format_price(total)
             data.append(info)
         return data
 
