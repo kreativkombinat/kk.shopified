@@ -17,7 +17,7 @@ class ShoppingCartUtility(grok.GlobalUtility):
             portal.getPhysicalPath())
         session = ISession(getRequest())
         if cart_id not in session:
-            session[cart_id] = ShoppingCart()
+            session[cart_id] = dict()
             session.save()
         return session[cart_id]
 

@@ -2,12 +2,15 @@ from five import grok
 from Acquisition import aq_inner
 from zope.annotation.interfaces import IAnnotations
 
+from plone.app.uuid.utils import uuidToObject
+
 from Products.statusmessages.interfaces import IStatusMessage
 from plone.uuid.interfaces import IUUID
 from Products.CMFCore.interfaces import IContentish
 
 from kk.shopified.utils import get_cart
 from kk.shopified.utils import wipe_cart
+from kk.shopified.utils import format_price
 
 from kk.shopified import MessageFactory as _
 
@@ -45,17 +48,20 @@ class ShoppingCartView(grok.View):
                 redirect_url = self.context_url() + '/@@cart'
                 return self.request.response.redirect(redirect_url)
 
-    def cartitems(self):
-        cart = get_cart()
-        key = 'kk.shopified.cartitem'
-        annotations = IAnnotations(cart, None)
-        if annotations is not None:
-            cartitems = annotations.get(key, dict())
-            return cartitems
-
     def cart(self):
         cart = get_cart()
-        return cart
+        data = []
+        for item in cart:
+            info = {}
+            product = uuidToObject(item)
+            quantity = cart[item]
+            info['uuid'] = item
+            info['quantity'] = quantity
+            info['title'] = product.Title()
+            info['description'] = product.Description()
+            info['price'] = format_price(product.price)
+            data.append(info)
+        return data
 
 
 class CartAddItem(grok.View):
