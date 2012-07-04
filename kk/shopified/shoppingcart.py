@@ -1,6 +1,7 @@
 from five import grok
 from Acquisition import aq_inner
-from zope.annotation.interfaces import IAnnotations
+from AccessControl import Unauthorized
+from zope.component import getMultiAdapter
 
 from plone.app.uuid.utils import uuidToObject
 
@@ -25,6 +26,10 @@ class ShoppingCartView(grok.View):
         self.context_url = context.absolute_url()
         self.uuid = IUUID(context, None)
         if 'form.button.Clear' in self.request:
+            authenticator = getMultiAdapter((context, self.request),
+                                            name=u"authenticator")
+            if not authenticator.verify():
+                raise Unauthorized
             wipe_cart()
             IStatusMessage(self.request).addStatusMessage(
                 _(u"Your shopping cart has successfully been purged"),
@@ -59,6 +64,7 @@ class ShoppingCartView(grok.View):
             info['quantity'] = quantity
             info['title'] = product.Title()
             info['description'] = product.Description()
+            info['url'] = product.absolute_url()
             info['price'] = format_price(product.price)
             total = quantity * int(product.price)
             info['price_total'] = format_price(total)

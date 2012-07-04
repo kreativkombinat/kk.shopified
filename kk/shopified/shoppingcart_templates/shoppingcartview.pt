@@ -18,58 +18,53 @@
         </tal:block>
 
 
-      <form tal:attributes="action request/URL"
-        method="post">
-        <label for="item_uuid">UUID</label>
-        <input type="text" name="item.uuid" id="item_uuid"
-          tal:define="item_uuid view/uuid"
-          tal:attributes="value item_uuid" />
-        <label for="item_quantity">Quantity</label>
-        <input type="text"
-          name="item.quantity"
-          id="item_quantity"
-          size="2"
-          tal:attributes="value string: 1" />
-        <div class="form-actions">
-          <input class="context"
-            type="submit"
-            name="form.button.Submit"
-            i18n:translate=""
-            value="Update cart" />
-        </div>
-      </form>
-
-      <table class="listing">
+      <form tal:attributes="action request/URL" method="post">
+      <table class="listing" style="width: 100%">
         <thead>
           <tr>
             <th>Amount</th>
             <th>Item</th>
             <th>Price</th>
+            <th>Total</th>
+            <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>#Number</td>
-            <td>Flux compensator</td>
-            <td>XX &euro;</td>
-          </tr>
-          <tr>
-            <td colspan="2">VAT</td>
-            <td>Vat value = XX &euro;</td>
-          </tr>
-          <tr>
-            <td colspan="2">NAT</td>
-            <td>XX &euro;</td>
-          </tr>
-          <tr>
-            <td colspan="3">
-              <input type="submit" value="Update Cart" />
-              <input type="submit" value="Clear Cart" />
-              <input type="submit" value="Checkout Cart" />
+        <tbody tal:define="cart view/cart">
+          <tr tal:repeat="item cart">
+            <td>
+              <input
+                type="hidden" class="span6"
+                tal:define="product_uid item/uuid"
+                tal:attributes="name product_uid;
+                                value product_uid" />
+              <input
+                type="text" class="span1" size="2"
+                tal:define="productuid item/uuid"
+                tal:attributes="name python:productuid + '.quantity';
+                                value item/quantity" />
             </td>
+            <td>
+              <h5>
+                <a href="" tal:attributes="href item/url"
+                   tal:content="item/title" />
+              </h5>
+              <p class="discreet" tal:content="item/description" />
+            </td>
+            <td tal:content="item/price">XX &euro;</td>
+            <td tal:content="item/price_total">XX Total</td>
+            <td><a href="#">Delete</a></td>
           </tr>
         </tbody>
       </table>
+      <span tal:replace="structure context/@@authenticator/authenticator"/>
+      <div class="form-actions">
+          <input class="context"
+            type="submit"
+            name="form.button.Submit"
+            i18n:translate=""
+            value="Update cart" />
+      </div>
+      </form>
 
     </div>
   </metal:content-core>

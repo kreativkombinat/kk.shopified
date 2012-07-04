@@ -6,7 +6,7 @@ from collective.beaker.interfaces import ISession
 from kk.shopified.interfaces import IShoppingCartUtility
 
 
-def format_price(self, price):
+def format_price(price):
     if price < 0:
         return '-%0.2f EUR' % abs(price)
     else:
