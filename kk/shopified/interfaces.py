@@ -64,4 +64,11 @@ class IShopifiedSettings(Interface):
     paypal_url = schema.Choice(
         title=_(u"Paypal Website Payments Server"),
         values=[_(u"Sandbox"), _(u"Production")],
+        required=True,
+    )
+    shop_url = schema.TextLine(
+        title=_(u"Shop URL"),
+        description=_(u"Please enter relative URL to the shop content"),
+        default=u"/shop",
+        required=True,
     )

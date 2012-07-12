@@ -1,5 +1,7 @@
 <div id="cart-viewlet" tal:condition="viewlet/available">
-    <a href="">Shopping Cart</a>
+    <a href=""
+        tal:attributes="href viewlet/cart_url">
+        Shopping Cart</a>
     <div tal:condition="viewlet/cart">
        <span tal:replace="viewlet/count_items" />
        items in the shopping cart

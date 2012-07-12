@@ -1,7 +1,12 @@
 from five import grok
 from zope.interface import Interface
+from zope.component import getUtility
+from zope.component import getMultiAdapter
 from plone.app.layout.viewlets.interfaces import IPortalHeader
+from plone.registry.interfaces import IRegistry
+
 from kk.shopified.utils import get_cart
+from kk.shopified.interfaces import IShopifiedSettings
 
 
 class CartViewlet(grok.Viewlet):
@@ -19,3 +24,13 @@ class CartViewlet(grok.Viewlet):
 
     def count_items(self):
         return len(self.cart())
+
+    def cart_url(self):
+        pstate = getMultiAdapter((self.context, self.request),
+                                name=u"plone_portal_state")
+        portal_url = pstate.portal_url()
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IShopifiedSettings)
+        shop_url = settings.shop_url
+        url = portal_url + shop_url + '/@@cart'
+        return url

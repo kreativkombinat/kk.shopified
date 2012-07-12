@@ -27,8 +27,9 @@
         <thead>
           <tr>
             <th>Amount</th>
+            <th>Image</th>
             <th>Item</th>
-            <th>Price</th>
+            <th>Unit Price</th>
             <th>Total</th>
             <th>Actions</th>
           </tr>
@@ -48,6 +49,9 @@
                                 value item/quantity" />
             </td>
             <td>
+              <img tal:replace="structure item/image_tag" />
+            </td>
+            <td>
               <h5>
                 <a href="" tal:attributes="href item/url"
                    tal:content="item/title" />
@@ -56,10 +60,16 @@
             </td>
             <td tal:content="item/price">XX &euro;</td>
             <td tal:content="item/price_total">XX Total</td>
-            <td><a href="#">Delete</a></td>
+            <td tal:define="context_url context/absolute_url;
+                            item_uuid item/uuid">
+              <a href="#"
+                tal:attributes="href python:context_url + '/@@cart-remove-item?item_uuid=' + item_uuid">
+                Delete
+              </a>
+            </td>
           </tr>
           <tr tal:condition="not:view/total_is_zero">
-            <th colspan="4" i18n:translate="">TOTAL</th>
+            <th colspan="5" i18n:translate="">TOTAL</th>
             <th>
               <span tal:content="view/cart_total" />
             </th>
@@ -82,13 +92,20 @@
         <div class="xwell" tal:condition="not:view/total_is_zero">
           <div class="btn-toolbar">
             <div class="btn-group">
-            <a href="" class="btn btn-primary btn-large"
-                tal:attributes="href python:context.absolute_url() + '/@@checkout'"
+              <a href="" class="btn btn-primary btn-large"
+                tal:define="portal_url view/portal_url"
+                tal:attributes="href python:portal_url + '/@@checkout'"
                 i18n:translate="">
-                Buy now</a>
+                Checkout</a>
+            </div>
+            <div class="btn-group">
+              <a href="" class="btn btn-primary btn-large"
+                tal:attributes="href python:context.absolute_url()"
+                i18n:translate="">
+                Continue shopping</a>
+            </div>
           </div>
         </div>
-      </div>
       </form>
     </tal:cart>
     </div>
