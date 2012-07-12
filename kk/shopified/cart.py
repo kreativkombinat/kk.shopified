@@ -1,12 +1,9 @@
 from five import grok
 from zope.interface import implements
 from zope.globalrequest import getRequest
-from zope.annotation.interfaces import IAttributeAnnotatable
 
 from collective.beaker.interfaces import ISession
-
 from kk.shopified.interfaces import IShoppingCartUtility
-from kk.shopified.interfaces import IShoppingCart
 
 
 class ShoppingCartUtility(grok.GlobalUtility):
@@ -28,11 +25,3 @@ class ShoppingCartUtility(grok.GlobalUtility):
         if cart_id in session:
             del session[cart_id]
             session.save()
-
-
-class ShoppingCart(object):
-    implements(IShoppingCart, IAttributeAnnotatable)
-
-    def data(self):
-        data = dict()
-        return data

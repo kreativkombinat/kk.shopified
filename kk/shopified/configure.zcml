@@ -2,6 +2,7 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:grok="http://namespaces.zope.org/grok"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="kk.shopified">
@@ -22,5 +23,15 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
   <!-- -*- extra stuff goes here -*- -->
+
+  <include package="plone.app.registry" />
+
+  <!-- Control panel -->
+  <browser:page
+      name="shopified-settings"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".controlpanel.ShopifiedSettingsControlPanel"
+      permission="cmf.ManagePortal"
+      />
   
 </configure>

@@ -58,6 +58,12 @@
             <td tal:content="item/price_total">XX Total</td>
             <td><a href="#">Delete</a></td>
           </tr>
+          <tr tal:condition="not:view/total_is_zero">
+            <th colspan="4" i18n:translate="">TOTAL</th>
+            <th>
+              <span tal:content="view/cart_total" />
+            </th>
+        </tr>
         </tbody>
       </table>
       <span tal:replace="structure context/@@authenticator/authenticator"/>
@@ -67,6 +73,21 @@
             name="form.button.Submit"
             i18n:translate=""
             value="Update cart" />
+          <input class="context"
+            type="submit"
+            name="form.button.Clear"
+            i18n:translate=""
+            value="Clear cart" />
+
+        <div class="xwell" tal:condition="not:view/total_is_zero">
+          <div class="btn-toolbar">
+            <div class="btn-group">
+            <a href="" class="btn btn-primary btn-large"
+                tal:attributes="href python:context.absolute_url() + '/@@checkout'"
+                i18n:translate="">
+                Buy now</a>
+          </div>
+        </div>
       </div>
       </form>
     </tal:cart>

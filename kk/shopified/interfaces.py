@@ -1,6 +1,7 @@
 from zope.interface import Interface
-from zope.interface import Attribute
-#from kk.shopified.utils import format_price
+from zope import schema
+
+from kk.shopified import MessageFactory as _
 
 
 class IShopified(Interface):
@@ -17,13 +18,6 @@ class IShoppingCartUtility(Interface):
 
     def destroy(context):
         """ Remove the current user's cart from the session if it exists. """
-
-
-class IShoppingCart(Interface):
-    """ Implemented by the shoppping cart object and providing a dictionary
-    """
-
-    data = Attribute(u"Cart data as list of dicts.")
 
 
 class ICartUpdaterUtility(Interface):
@@ -50,3 +44,24 @@ class ICartUpdaterUtility(Interface):
             @param product_uuid: catalog uuid
             @param quantity: item quantity
         """
+
+
+class IShopifiedSettings(Interface):
+    """ Controlpanel settings for shopified stored in the registry"""
+
+    paypal_key = schema.TextLine(
+        title=_(u"Paypal Merchant Key"),
+        description=_(u"Please enter your PayPal merchant account key"),
+        required=False,
+        default=u"",
+    )
+    paypal_sandbox = schema.TextLine(
+        title=_(u"PayPal Sandbox Key"),
+        description=_(u"Enter your PayPal sandbox account key. This is "
+                      u"usually an E-mail address"),
+        required=False,
+    )
+    paypal_url = schema.Choice(
+        title=_(u"Paypal Website Payments Server"),
+        values=[_(u"Sandbox"), _(u"Production")],
+    )

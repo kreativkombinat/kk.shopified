@@ -65,7 +65,8 @@ class ShoppingCartView(grok.View):
             info['title'] = product.Title()
             info['description'] = product.Description()
             info['url'] = product.absolute_url()
-            info['price'] = format_price(product.price)
+            info['price'] = product.price
+            info['price_pretty'] = format_price(product.price)
             total = quantity * int(product.price)
             info['price_total'] = format_price(total)
             data.append(info)
@@ -74,6 +75,17 @@ class ShoppingCartView(grok.View):
     def has_cart(self):
         cart = get_cart()
         return len(cart) > 0
+
+    def cart_total(self):
+        total = 0.0
+        for item in self.cart():
+            value = item['price']
+            value = value * int(item['quantity'])
+            total = total + value
+        return total
+
+    def total_is_zero(self):
+        return self.cart_total() <= 0
 
 
 class CartAddItem(grok.View):
