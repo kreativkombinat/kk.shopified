@@ -19,7 +19,7 @@ from kk.shopified import MessageFactory as _
 class ShoppingCartView(grok.View):
     grok.context(IContentish)
     grok.require('zope2.View')
-    grok.name('cart-overview')
+    grok.name('cart')
 
     def update(self):
         context = aq_inner(self.context)
@@ -71,6 +71,10 @@ class ShoppingCartView(grok.View):
             data.append(info)
         return data
 
+    def has_cart(self):
+        cart = get_cart()
+        return len(cart) > 0
+
 
 class CartAddItem(grok.View):
     grok.context(IContentish)
@@ -100,6 +104,25 @@ class CartRemoveItem(grok.View):
 
     def update(self):
         context = aq_inner(self.request)
+        self.context_url = context.absolute_url()
+        IStatusMessage(self.request).addStatusMessage(
+            _(u"Remove item from cart executed. This is not yet implemented"),
+            type="info")
+        redirect_url = self.context_url() + '/@@cart'
+        return self.request.response.redirect(redirect_url)
+
+    def render(self):
+        return ''
+
+
+class CartClear(grok.View):
+    grok.context(IContentish)
+    grok.require('zope2.View')
+    grok.name('cart-clear')
+
+    def update(self):
+        context = aq_inner(self.context)
+        wipe_cart()
         self.context_url = context.absolute_url()
         IStatusMessage(self.request).addStatusMessage(
             _(u"Remove item from cart executed. This is not yet implemented"),
