@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-07-19 12:00+0000\n"
+"POT-Creation-Date: 2012-07-19 16:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,10 @@ msgstr ""
 msgid ""
 msgstr ""
 
+#: ./../cartviewlet_templates/cartviewlet.pt:10
+msgid "${item_count} items in the shopping cart"
+msgstr ""
+
 #: ./../shoppingcart.py:57
 msgid "%s cart items successfully updated"
 msgstr ""
@@ -29,7 +33,11 @@ msgstr ""
 msgid "Add item to cart executed: %s %s "
 msgstr ""
 
-#: ./../checkout.py:34
+#: ./../checkout_templates/checkoutview.pt:65
+msgid "Billing Details"
+msgstr ""
+
+#: ./../checkout.py:41
 #: ./../checkout_templates/checkoutview.pt:13
 #: ./../shoppingcart_templates/shoppingcartview.pt:95
 msgid "Checkout"
@@ -47,15 +55,11 @@ msgstr ""
 msgid "Enter your PayPal sandbox account key. This is usually an E-mail address"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:72
-msgid "Envoice address"
-msgstr ""
-
-#: ./../shoppingcart.py:141
+#: ./../shoppingcart.py:140
 msgid "Item could not be removed from the shopping cart. Please try again. If the error should persist, please contact the shop owner"
 msgstr ""
 
-#: ./../shoppingcart.py:148
+#: ./../shoppingcart.py:147
 msgid "Item has been removed from the shopping cart"
 msgstr ""
 
@@ -91,7 +95,7 @@ msgstr ""
 msgid "Quantity must be given"
 msgstr ""
 
-#: ./../shoppingcart.py:174
+#: ./../shoppingcart.py:173
 msgid "Remove item from cart executed. This is not yet implemented"
 msgstr ""
 
@@ -99,11 +103,15 @@ msgstr ""
 msgid "Sandbox"
 msgstr ""
 
-#: ./../checkout.py:49
+#: ./../checkout.py:56
 msgid "Send now"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:23
+#: ./../checkout_templates/checkoutview.pt:141
+msgid "Shipping Address"
+msgstr ""
+
+#: ./../checkout_templates/checkoutview.pt:145
 msgid "Shipping address"
 msgstr ""
 
@@ -119,11 +127,13 @@ msgstr ""
 msgid "Shopified settings"
 msgstr ""
 
+#: ./../cartviewlet_templates/cartviewlet.pt:4
 #: ./../shoppingcart_templates/cartremoveitem.pt:13
 #: ./../shoppingcart_templates/shoppingcartview.pt:13
 msgid "Shopping Cart"
 msgstr ""
 
+#: ./../checkout_templates/checkoutview.pt:53
 #: ./../shoppingcart_templates/shoppingcartview.pt:72
 msgid "TOTAL"
 msgstr ""
@@ -136,7 +146,7 @@ msgstr ""
 msgid "Your shopping cart is empty"
 msgstr ""
 
-#: ./../checkout.py:57
+#: ./../checkout.py:64
 msgid "cancel"
 msgstr ""
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2012-07-19 16:10+0000\n"
-"PO-Revision-Date: 2012-07-19 14:09+0100\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"PO-Revision-Date: 2012-07-19 18:37+0100\n"
 "Last-Translator: Christoph Boehner <cb@vorwaerts-werbung.de>\n"
 "Language-Team: KK Language Team <info@kreativkombinat.de>\n"
 "MIME-Version: 1.0\n"
@@ -14,6 +14,10 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: kk.shopified\n"
 
+#: ./../cartviewlet_templates/cartviewlet.pt:10
+msgid "${item_count} items in the shopping cart"
+msgstr "${item_count} Artikel im Warenkorb"
+
 #: ./../shoppingcart.py:57
 msgid "%s cart items successfully updated"
 msgstr "%s Artikel aus dem Warenkorb wurden erfolgreich aktualisiert"
@@ -22,7 +26,11 @@ msgstr "%s Artikel aus dem Warenkorb wurden erfolgreich aktualisiert"
 msgid "Add item to cart executed: %s %s "
 msgstr "Artikel in den Warenkorb gelegt: %s %s "
 
-#: ./../checkout.py:34
+#: ./../checkout_templates/checkoutview.pt:65
+msgid "Billing Details"
+msgstr "Adressinformationen"
+
+#: ./../checkout.py:41
 #: ./../checkout_templates/checkoutview.pt:13
 #: ./../shoppingcart_templates/shoppingcartview.pt:95
 msgid "Checkout"
@@ -40,15 +48,11 @@ msgstr "${DYNAMIC_CONTENT} aus dem Warenkorb entfernen?"
 msgid "Enter your PayPal sandbox account key. This is usually an E-mail address"
 msgstr "Bitte geben Sie Ihren PayPal Sandbox Zugang ein. Dies ist üblicherweise eine E-Mail-Adresse."
 
-#: ./../checkout_templates/checkoutview.pt:72
-msgid "Envoice address"
-msgstr "Rechnungsadresse"
-
-#: ./../shoppingcart.py:141
+#: ./../shoppingcart.py:140
 msgid "Item could not be removed from the shopping cart. Please try again. If the error should persist, please contact the shop owner"
 msgstr "Der Artikel konnte nicht aus dem Wrankorb entfernt werden. Bitte versuchen Sie es noch einmal. Sollte der Fehler erneut auftreten wenden Sie sich bitte an den Shopbetreiber"
 
-#: ./../shoppingcart.py:148
+#: ./../shoppingcart.py:147
 msgid "Item has been removed from the shopping cart"
 msgstr "Der Artikel wurde aus dem Warenkorb entfernt"
 
@@ -84,7 +88,7 @@ msgstr "Produktivsystem"
 msgid "Quantity must be given"
 msgstr "Ein Angabe der Artikelanzahl ist verpflichtend"
 
-#: ./../shoppingcart.py:174
+#: ./../shoppingcart.py:173
 msgid "Remove item from cart executed. This is not yet implemented"
 msgstr "Entfernen einen Artikels aus dem Warenkorb wurde ausgeführt. Diese Aktion ist noch nicht implementiert."
 
@@ -92,11 +96,15 @@ msgstr "Entfernen einen Artikels aus dem Warenkorb wurde ausgeführt. Diese Akti
 msgid "Sandbox"
 msgstr "Sandbox/Testumgebung"
 
-#: ./../checkout.py:49
+#: ./../checkout.py:56
 msgid "Send now"
 msgstr "Jetzt abschicken"
 
-#: ./../checkout_templates/checkoutview.pt:23
+#: ./../checkout_templates/checkoutview.pt:141
+msgid "Shipping Address"
+msgstr "Lieferadresse"
+
+#: ./../checkout_templates/checkoutview.pt:145
 msgid "Shipping address"
 msgstr "Lieferadresse"
 
@@ -112,11 +120,13 @@ msgstr "Kreativkombinat Shopified"
 msgid "Shopified settings"
 msgstr "Shopified Einstellungen"
 
+#: ./../cartviewlet_templates/cartviewlet.pt:4
 #: ./../shoppingcart_templates/cartremoveitem.pt:13
 #: ./../shoppingcart_templates/shoppingcartview.pt:13
 msgid "Shopping Cart"
 msgstr "Warenkorb"
 
+#: ./../checkout_templates/checkoutview.pt:53
 #: ./../shoppingcart_templates/shoppingcartview.pt:72
 msgid "TOTAL"
 msgstr "Gesamtpreis"
@@ -129,7 +139,7 @@ msgstr "Der Wrankorb wurde erfogreich geleert."
 msgid "Your shopping cart is empty"
 msgstr "Ihr Warenkorb ist leer"
 
-#: ./../checkout.py:57
+#: ./../checkout.py:64
 msgid "cancel"
 msgstr "Abbrechen"
 

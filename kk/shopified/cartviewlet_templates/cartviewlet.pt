@@ -1,9 +1,14 @@
-<div id="cart-viewlet" tal:condition="viewlet/available">
+<div id="cart-viewlet"
+    i18n:domain="kk.shopified"
+    tal:condition="viewlet/available">
     <a href=""
+        i18n:translate=""
         tal:attributes="href viewlet/cart_url">
         Shopping Cart</a>
-    <div tal:condition="viewlet/cart">
-       <span tal:replace="viewlet/count_items" />
+    <div tal:condition="viewlet/cart"
+        i18n:translate="">
+       <span tal:replace="viewlet/count_items"
+            i18n:name="item_count" />
        items in the shopping cart
     </div>
 </div>
