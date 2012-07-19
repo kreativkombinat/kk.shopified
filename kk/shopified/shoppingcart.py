@@ -116,7 +116,6 @@ class CartAddItem(grok.View):
         IStatusMessage(self.request).addStatusMessage(
             _(u"Add item to cart executed: %s %s ") % (item, qty),
             type="info")
-        import pdb; pdb.set_trace( )
         redirect_url = self.context_url() + '/@@cart'
         return self.request.response.redirect(redirect_url)
 
