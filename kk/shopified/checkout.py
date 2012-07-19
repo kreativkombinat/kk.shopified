@@ -59,3 +59,9 @@ class CheckoutForm(form.Form):
         context = aq_inner(self.context)
         context_url = context.absolute_url()
         return self.request.response.redirect(context_url)
+
+
+class CheckoutView(grok.View):
+    grok.context(INavigationRoot)
+    grok.require('zope2.View')
+    grok.name('check-out')

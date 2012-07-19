@@ -1,0 +1,138 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="kk.shopified">
+<body>
+
+<metal:main fill-slot="main">
+  <metal:content-core define-macro="main">
+    <div id="shopping-cart">
+      <h1 class="documentFirstHeading"
+        i18n:translate="">Checkout</h1>
+
+      <div class="well">
+        <h2>Shopping Cart Summary will be inserted here</h2>
+      </div>
+
+      <form tal:attributes="action request/URL"
+        method="post">
+        <fieldset>
+          <legend i18n:translate="">Shipping address</legend>
+            <div class="control-group field">
+              <label class="control-label" for="fullname">Fullname</label>
+                <div class="controls">
+                  <input type="text" class="input-xlarge" id="fullname"
+                    name="fullname">
+                </div>
+            </div>
+            <div class="control-group field">
+              <label class="control-label" for="city">City</label>
+                <div class="controls">
+                  <input type="text" class="input-xlarge" id="city"
+                    name="city">
+                </div>
+            </div>
+            <div class="control-group field">
+              <label class="control-label" for="zipcode">Zipcode</label>
+                <div class="controls">
+                  <input type="text" class="input-xlarge" id="zipcode"
+                    name="zipcode">
+                </div>
+            </div>
+            <div class="control-group field">
+              <label class="control-label" for="address-one">Address 1</label>
+                <div class="controls">
+                  <input type="text" class="input-xlarge" id="address-one"
+                    name="address-one">
+                </div>
+            </div>
+            <div class="control-group field">
+              <label class="control-label" for="address-two">Address 2</label>
+                <div class="controls">
+                  <input type="text" class="input-xlarge" id="address-two"
+                    name="address-two">
+                </div>
+            </div>
+            <div class="control-group field">
+              <label class="control-label" for="country">Country</label>
+                <div class="controls">
+                  <select class="input-xlarge" id="country"
+                    name="country">
+                    <option value="Germany">Germany</option>
+                    <option value="EU">EU Country</option>
+                  </select>
+                  <p class="help-block helpBlock">Helptext for the field</p>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+          <legend i18n:translate="">Envoice address</legend>
+            <div class="control-group field">
+              <label class="control-label" for="fullname">Fullname</label>
+                <div class="controls">
+                  <input type="text" class="input-xlarge" id="fullname"
+                    name="fullname">
+                </div>
+            </div>
+            <div class="control-group field">
+              <label class="control-label" for="city">City</label>
+                <div class="controls">
+                  <input type="text" class="input-xlarge" id="city"
+                    name="city">
+                </div>
+            </div>
+            <div class="control-group field">
+              <label class="control-label" for="zipcode">Zipcode</label>
+                <div class="controls">
+                  <input type="text" class="input-xlarge" id="zipcode"
+                    name="zipcode">
+                </div>
+            </div>
+            <div class="control-group field">
+              <label class="control-label" for="address-one">Address 1</label>
+                <div class="controls">
+                  <input type="text" class="input-xlarge" id="address-one"
+                    name="address-one">
+                </div>
+            </div>
+            <div class="control-group field">
+              <label class="control-label" for="address-two">Address 2</label>
+                <div class="controls">
+                  <input type="text" class="input-xlarge" id="address-two"
+                    name="address-two">
+                </div>
+            </div>
+            <div class="control-group field">
+              <label class="control-label" for="country">Country</label>
+                <div class="controls">
+                  <select class="input-xlarge" id="country"
+                    name="country">
+                    <option value="Germany">Germany</option>
+                    <option value="EU">EU Country</option>
+                  </select>
+                  <p class="help-block helpBlock">Helptext for the field</p>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-actions formControls">
+          <input type="submit"
+            name="form.button.Submit"
+            class="context btn"
+            value="Order now"
+            i18n:translate="" />
+          <input type="submit"
+            name="form.button.Enquiry"
+            class="context btn"
+            value="Send order via email"
+            i18n:translate="" />
+        </div>
+      </form>
+
+    </div>
+  </metal:content-core>
+</metal:main>
+</body>
+</html>
