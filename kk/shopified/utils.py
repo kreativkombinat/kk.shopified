@@ -2,7 +2,9 @@ from zope.component import getUtility
 from zope.site.hooks import getSite
 from zope.globalrequest import getRequest
 from collective.beaker.interfaces import ISession
+from plone.registry.interfaces import IRegistry
 
+from kk.shopified.interfaces import IShopifiedSettings
 from kk.shopified.interfaces import IShoppingCartUtility
 
 
@@ -25,9 +27,36 @@ def update_cart():
     return getUtility(IShoppingCartUtility).update(getSite())
 
 
+def redirect_to_shop():
+    site = getSite()
+    request = getRequest()
+    registry = getUtility(IRegistry)
+    settings = registry.forInterface(IShopifiedSettings)
+    shop_url = settings.shop_url
+    portal_url = site.absolute_url()
+    url = portal_url + shop_url
+    request.response.redirect(url)
+
+
+def redirect_to_cart():
+    site = getSite()
+    request = getRequest()
+    registry = getUtility(IRegistry)
+    settings = registry.forInterface(IShopifiedSettings)
+    shop_url = settings.shop_url
+    portal_url = site.absolute_url()
+    url = portal_url + shop_url + '/@@cart'
+    request.response.redirect(url)
+
+
 def redirect_to_checkout():
     site = getSite()
     request = getRequest()
     session = ISession(request)
     session.save()
-    request.response.redirect(site.absolute_url() + '/@@checkout')
+    registry = getUtility(IRegistry)
+    settings = registry.forInterface(IShopifiedSettings)
+    shop_url = settings.shop_url
+    portal_url = site.absolute_url()
+    url = portal_url + shop_url + '/@@checkout'
+    request.response.redirect(url)
