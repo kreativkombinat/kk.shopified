@@ -87,6 +87,7 @@ class CheckoutView(grok.View):
             info['image_tag'] = self.image_tag(product)
             info['url'] = product.absolute_url()
             info['price'] = product.price
+            info['shipping'] = product.shipping_price
             info['price_pretty'] = format_price(product.price)
             total = quantity * int(product.price)
             info['price_total'] = format_price(total)
@@ -107,6 +108,22 @@ class CheckoutView(grok.View):
 
     def total_is_zero(self):
         return self.cart_total() <= 0
+
+    def cart_net(self):
+        return format_price(self.cart_total())
+
+    def cart_vat(self):
+        total = self.cart_total()
+        vat = total * 0.19
+        return format_price(vat)
+
+    def cart_shipping(self):
+        shipping = 0.0
+        for item in self.cart():
+            value = item['shipping']
+            shipping_value = value * int(item['quantity'])
+            shipping = shipping + shipping_value
+            return format_price(shipping)
 
     def image_tag(self, obj):
         scales = getMultiAdapter((obj, self.request), name='images')

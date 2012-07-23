@@ -13,183 +13,138 @@
       <h1 class="documentFirstHeading"
         i18n:translate="">Checkout</h1>
 
-      <h2>Shopping Cart Summary</h2>
-      <tal:cart tal:condition="view/has_cart">
-      <table class="listing" style="width: 100%">
-        <thead>
-          <tr>
-            <th>Amount</th>
-            <th>Image</th>
-            <th>Item</th>
-            <th>Unit Price</th>
-            <th>Total</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody tal:define="cart view/cart">
-          <tr tal:repeat="item cart">
-            <td tal:content="item/quantity" />
-            <td>
-              <img tal:replace="structure item/image_tag" />
-            </td>
-            <td>
-              <h5>
-                <a href="" tal:attributes="href item/url"
-                   tal:content="item/title" />
-              </h5>
-              <p class="discreet" tal:content="item/description" />
-            </td>
-            <td><span tal:replace="item/price" /> &euro;</td>
-            <td tal:content="item/price_total">XX Total</td>
-            <td tal:define="context_url context/absolute_url;
-                            item_uuid item/uuid">
-              <a href="#"
-                tal:attributes="href python:context_url + '/@@cart-remove-item?item_uuid=' + item_uuid">
-                Delete
-              </a>
-            </td>
-          </tr>
-          <tr tal:condition="not:view/total_is_zero">
-            <th colspan="5" i18n:translate="">TOTAL</th>
-            <th>
-              <span tal:content="view/cart_total" /> &euro;
-            </th>
-        </tr>
-        </tbody>
-      </table>
-      </tal:cart>
-
       <form tal:attributes="action request/URL"
         method="post">
         <div>
-          <h2 i18n:translate="">Billing Details</h2>
+          <h2 i18n:translate="">Personal Details</h2>
+          <div class="control-group field">
+            <label class="control-label" for="firstname">Firstname</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="firstname"
+                name="firstname">
+            </div>
+          </div>
+          <div class="control-group field">
+            <label class="control-label" for="lastname">Lastname</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="lastname"
+                name="lastname">
+            </div>
+          </div>
+          <div class="control-group field">
+            <label class="control-label" for="phone">Phone</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="phone"
+                name="phone">
+            </div>
+          </div>
+          <div class="control-group field">
+            <label class="control-label" for="email">E-Mail</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="email"
+                name="email">
+            </div>
+          </div>
+          <h2 i18n:translate="">Address Information</h2>
+          <p class="help-text">
+            Please enter the shipping address</p>
           <div class="row">
             <div class="cell position-0 width-1:2">
-              <h4>Personal Details</h4>
+              <h4 i18n:translate="">Shipping Address</h4>
               <div class="control-group field">
-                <label class="control-label" for="firstname">Firstname</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="firstname"
-                    name="firstname">
-                </div>
+                <label class="control-label" for="city">City</label>
+                  <div class="controls">
+                    <input type="text" class="input-xlarge" id="city"
+                      name="city">
+                  </div>
               </div>
               <div class="control-group field">
-                <label class="control-label" for="lastname">Lastname</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="lastname"
-                    name="lastname">
-                </div>
+                <label class="control-label" for="zipcode">Zipcode</label>
+                  <div class="controls">
+                    <input type="text" class="input-xlarge" id="zipcode"
+                      name="zipcode">
+                  </div>
               </div>
               <div class="control-group field">
-                <label class="control-label" for="phone">Phone</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="phone"
-                    name="phone">
-                </div>
+                <label class="control-label" for="address-one">Address 1</label>
+                  <div class="controls">
+                    <input type="text" class="input-xlarge" id="address-one"
+                      name="address-one">
+                  </div>
               </div>
               <div class="control-group field">
-                <label class="control-label" for="email">E-Mail</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="email"
-                    name="email">
-                </div>
+                <label class="control-label" for="address-two">Address 2</label>
+                  <div class="controls">
+                    <input type="text" class="input-xlarge" id="address-two"
+                      name="address-two">
+                  </div>
+              </div>
+              <div class="control-group field">
+                <label class="control-label" for="country">Country</label>
+                  <div class="controls">
+                    <select class="input-xlarge" id="country"
+                      name="country">
+                      <option value="Germany">Germany</option>
+                      <option value="EU">EU Country</option>
+                    </select>
+                    <p class="help-block helpBlock">Helptext for the field</p>
+                  </div>
               </div>
             </div>
             <div class="cell position-1:2 width-1:2">
-              <h4>Billing Address</h4>
-            <div class="control-group field">
-              <label class="control-label" for="city">City</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="city"
-                    name="city">
+              <h4 i18n:translate="">Billing Address</h4>
+              <a href="#checkout-address-billing"
+                class="show-details">Add</a>
+              <div class="details" id="checkout-address-billing">
+                <div class="control-group field">
+                  <label class="control-label" for="fullname">Fullname</label>
+                    <div class="controls">
+                      <input type="text" class="input-xlarge" id="fullname"
+                        name="fullname">
+                    </div>
                 </div>
-            </div>
-            <div class="control-group field">
-              <label class="control-label" for="zipcode">Zipcode</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="zipcode"
-                    name="zipcode">
+                <div class="control-group field">
+                  <label class="control-label" for="city">City</label>
+                    <div class="controls">
+                      <input type="text" class="input-xlarge" id="city"
+                        name="city">
+                    </div>
                 </div>
-            </div>
-            <div class="control-group field">
-              <label class="control-label" for="address-one">Address 1</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="address-one"
-                    name="address-one">
+                <div class="control-group field">
+                  <label class="control-label" for="zipcode">Zipcode</label>
+                    <div class="controls">
+                      <input type="text" class="input-xlarge" id="zipcode"
+                        name="zipcode">
+                    </div>
                 </div>
-            </div>
-            <div class="control-group field">
-              <label class="control-label" for="address-two">Address 2</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="address-two"
-                    name="address-two">
+                <div class="control-group field">
+                  <label class="control-label" for="address-one">Address 1</label>
+                    <div class="controls">
+                      <input type="text" class="input-xlarge" id="address-one"
+                        name="address-one">
+                    </div>
                 </div>
-            </div>
-            <div class="control-group field">
-              <label class="control-label" for="country">Country</label>
-                <div class="controls">
-                  <select class="input-xlarge" id="country"
-                    name="country">
-                    <option value="Germany">Germany</option>
-                    <option value="EU">EU Country</option>
-                  </select>
-                  <p class="help-block helpBlock">Helptext for the field</p>
+                <div class="control-group field">
+                  <label class="control-label" for="address-two">Address 2</label>
+                    <div class="controls">
+                      <input type="text" class="input-xlarge" id="address-two"
+                        name="address-two">
+                    </div>
                 </div>
-            </div>
-            </div>
-        </div>
-        <h2><span i18n:translate="">Shipping Address</span>
-        </h2><a href="#checkout-address-billing"
-            class="show-details">Add</a>
-        <div class="details" id="checkout-address-billing">
-          <legend i18n:translate="">Shipping address</legend>
-            <div class="control-group field">
-              <label class="control-label" for="fullname">Fullname</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="fullname"
-                    name="fullname">
+                <div class="control-group field">
+                  <label class="control-label" for="country">Country</label>
+                    <div class="controls">
+                      <select class="input-xlarge" id="country"
+                        name="country">
+                        <option value="Germany">Germany</option>
+                        <option value="EU">EU Country</option>
+                      </select>
+                      <p class="help-block helpBlock">Helptext for the field</p>
+                    </div>
                 </div>
+              </div>
             </div>
-            <div class="control-group field">
-              <label class="control-label" for="city">City</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="city"
-                    name="city">
-                </div>
-            </div>
-            <div class="control-group field">
-              <label class="control-label" for="zipcode">Zipcode</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="zipcode"
-                    name="zipcode">
-                </div>
-            </div>
-            <div class="control-group field">
-              <label class="control-label" for="address-one">Address 1</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="address-one"
-                    name="address-one">
-                </div>
-            </div>
-            <div class="control-group field">
-              <label class="control-label" for="address-two">Address 2</label>
-                <div class="controls">
-                  <input type="text" class="input-xlarge" id="address-two"
-                    name="address-two">
-                </div>
-            </div>
-            <div class="control-group field">
-              <label class="control-label" for="country">Country</label>
-                <div class="controls">
-                  <select class="input-xlarge" id="country"
-                    name="country">
-                    <option value="Germany">Germany</option>
-                    <option value="EU">EU Country</option>
-                  </select>
-                  <p class="help-block helpBlock">Helptext for the field</p>
-                </div>
-            </div>
-        </div>
+          </div>
         <div>
           <h2>Payment</h2>
           <div class="control-group field">
@@ -207,8 +162,64 @@
                     name="address-two" rows="4" />
                   <p class="help-block helpBlock">Helptext for the field</p>
                 </div>
-            </div>
+          </div>
         </div>
+         <h2>Shopping Cart Summary</h2>
+      <tal:cart tal:condition="view/has_cart">
+      <table class="listing" style="width: 100%">
+        <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Image</th>
+            <th>Item</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody tal:define="cart view/cart">
+          <tr tal:repeat="item cart">
+            <td tal:content="item/quantity" />
+            <td>
+              <img tal:replace="structure item/image_tag" />
+            </td>
+            <td>
+              <h5>
+                <a href="" tal:attributes="href item/url"
+                   tal:content="item/title" />
+              </h5>
+              <p class="discreet" tal:content="item/description" />
+            </td>
+            <td tal:content="item/price_pretty" />
+            <td tal:content="item/price_total">XX Total</td>
+          </tr>
+          <tr>
+            <td colspan="3" />
+            <td colspan="2"><hr /></td>
+          </tr>
+          <tr tal:condition="not:view/total_is_zero">
+            <td colspan="3" />
+            <td colspan="1" i18n:translate="">shipping</td>
+            <td>
+              <span tal:content="view/cart_shipping" />
+            </td>
+          </tr>
+          <tr tal:condition="not:view/total_is_zero">
+            <td colspan="3" />
+            <td colspan="1" i18n:translate="">VAT (19%)</td>
+            <td>
+              <span tal:content="view/cart_vat" />
+            </td>
+          </tr>
+          <tr tal:condition="not:view/total_is_zero">
+            <th colspan="3" />
+            <th colspan="1" i18n:translate="">TOTAL</th>
+            <th>
+              <span tal:content="view/cart_net" />
+            </th>
+          </tr>
+        </tbody>
+      </table>
+      </tal:cart>
         <div class="form-actions formControls">
           <input type="submit"
             name="form.button.Submit"
