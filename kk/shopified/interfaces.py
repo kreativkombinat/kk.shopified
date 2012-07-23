@@ -38,13 +38,6 @@ class ICartUpdaterUtility(Interface):
             @param product_uuid: catalog uuid
         """
 
-    def update(context):
-        """ update an item in the shopping cart
-
-            @param product_uuid: catalog uuid
-            @param quantity: item quantity
-        """
-
 
 class IShopifiedSettings(Interface):
     """ Controlpanel settings for shopified stored in the registry"""
@@ -71,4 +64,10 @@ class IShopifiedSettings(Interface):
         description=_(u"Please enter relative URL to the shop content"),
         default=u"/shop",
         required=True,
+    )
+    email_order_url = schema.TextLine(
+        title=_(u"Email Order"),
+        description=_(u"Please enter optional email order url (relative to "
+                      u"the site root. Leave empty for the default form"),
+        required=False,
     )

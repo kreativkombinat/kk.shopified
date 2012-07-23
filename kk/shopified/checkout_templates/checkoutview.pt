@@ -18,17 +18,10 @@
         <div>
           <h2 i18n:translate="">Personal Details</h2>
           <div class="control-group field">
-            <label class="control-label" for="firstname">Firstname</label>
+            <label class="control-label" for="fullname">Fullname</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="firstname"
-                name="firstname">
-            </div>
-          </div>
-          <div class="control-group field">
-            <label class="control-label" for="lastname">Lastname</label>
-            <div class="controls">
-              <input type="text" class="input-xlarge" id="lastname"
-                name="lastname">
+              <input type="text" class="input-xlarge" id="fullname"
+                name="fullname">
             </div>
           </div>
           <div class="control-group field">
@@ -45,6 +38,14 @@
                 name="email">
             </div>
           </div>
+          <div class="control-group field">
+              <label class="control-label" for="country">Comments</label>
+                <div class="controls">
+                  <textarea class="input-xlarge" id="address-two"
+                    name="address-two" rows="4" />
+                  <p class="help-block helpBlock">Helptext for the field</p>
+                </div>
+            </div>
           <h2 i18n:translate="">Address Information</h2>
           <p class="help-text">
             Please enter the shipping address</p>
@@ -97,13 +98,6 @@
                 class="show-details">Add</a>
               <div class="details" id="checkout-address-billing">
                 <div class="control-group field">
-                  <label class="control-label" for="fullname">Fullname</label>
-                    <div class="controls">
-                      <input type="text" class="input-xlarge" id="fullname"
-                        name="fullname">
-                    </div>
-                </div>
-                <div class="control-group field">
                   <label class="control-label" for="city">City</label>
                     <div class="controls">
                       <input type="text" class="input-xlarge" id="city"
@@ -146,25 +140,13 @@
             </div>
           </div>
         <div>
-          <h2>Payment</h2>
-          <div class="control-group field">
-              <label class="control-label" for="country">Comments</label>
-                <div class="controls">
-                  <textarea class="input-xlarge" id="address-two"
-                    name="address-two" rows="4" />
-                  <p class="help-block helpBlock">Helptext for the field</p>
-                </div>
-            </div>
-          <div class="control-group field">
-              <label class="control-label" for="country">Terms and Conditions</label>
-                <div class="controls">
-                  <input type="checkbox" class="input-xlarge" id="address-two"
-                    name="address-two" rows="4" />
-                  <p class="help-block helpBlock">Helptext for the field</p>
-                </div>
-          </div>
+        <div id="checkout-legal">
+          <h2>Terms and Conditions</h2>
+          <p>I have read and understood the
+            <a href="#terms-and-conditions">terms and conditions</a>
+            that apply to orders from this shop</p>
         </div>
-         <h2>Shopping Cart Summary</h2>
+         <h2>Order Summary</h2>
       <tal:cart tal:condition="view/has_cart">
       <table class="listing" style="width: 100%">
         <thead>
