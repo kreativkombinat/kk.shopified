@@ -28,6 +28,9 @@ class CheckoutView(grok.View):
         context = aq_inner(self.context)
         self.errors = {}
         unwanted = ('_authenticator', 'form.button.Submit')
+        fieldset_billing = ('billing.city', 'billing.zipcode',
+                            'billing.address_1', 'billing.address_2',
+                            'billing.country')
         if 'form.button.Submit' in self.request:
             form = self.request.form
             authenticator = getMultiAdapter((context, self.request),
