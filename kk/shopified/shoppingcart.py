@@ -9,11 +9,13 @@ from plone.app.uuid.utils import uuidToObject
 from Products.statusmessages.interfaces import IStatusMessage
 from plone.uuid.interfaces import IUUID
 from Products.CMFCore.interfaces import IContentish
+from plone.registry.interfaces import IRegistry
 
 from kk.shopified.utils import get_cart
 from kk.shopified.utils import wipe_cart
 from kk.shopified.utils import format_price
 
+from kk.shopified.interfaces import IShopifiedSettings
 from kk.shopified.interfaces import ICartUpdaterUtility
 
 from kk.shopified import MessageFactory as _
@@ -93,6 +95,13 @@ class ShoppingCartView(grok.View):
 
     def total_is_zero(self):
         return self.cart_total() <= 0
+
+    def checkout_url(self):
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IShopifiedSettings)
+        shop_url = settings.shop_url
+        url = self.portal_url + shop_url + '/@@checkout'
+        return url
 
     def image_tag(self, obj):
         scales = getMultiAdapter((obj, self.request), name='images')

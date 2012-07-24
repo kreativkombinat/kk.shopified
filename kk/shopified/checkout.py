@@ -166,8 +166,9 @@ class CheckoutView(grok.View):
         shipping = 0.0
         for item in self.cart():
             value = item['shipping']
-            shipping_value = value * int(item['quantity'])
-            shipping = shipping + shipping_value
+            if value:
+                shipping_value = value * int(item['quantity'])
+                shipping = shipping + shipping_value
             return format_price(shipping)
 
     def image_tag(self, obj):

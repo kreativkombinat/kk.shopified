@@ -93,8 +93,7 @@
           <div class="btn-toolbar">
             <div class="btn-group">
               <a href="" class="btn btn-primary btn-large"
-                tal:define="portal_url view/portal_url"
-                tal:attributes="href python:portal_url + '/@@checkout'"
+                tal:attributes="href view/checkout_url"
                 i18n:translate="">
                 Checkout</a>
             </div>
