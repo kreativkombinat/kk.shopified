@@ -28,9 +28,8 @@ class CheckoutView(grok.View):
         context = aq_inner(self.context)
         self.errors = {}
         unwanted = ('_authenticator', 'form.button.Submit')
-        fieldset_billing = ('billing.city', 'billing.zipcode',
-                            'billing.address_1', 'billing.address_2',
-                            'billing.country')
+        billing = self.billing_fields()
+        shipping = self.shipping_fields()
         if 'form.button.Submit' in self.request:
             form = self.request.form
             authenticator = getMultiAdapter((context, self.request),
@@ -185,3 +184,15 @@ class CheckoutView(grok.View):
             return encoded_value
         else:
             return ''
+
+    def billing_fields(self):
+        fields = ('billing.city', 'billing.zipcode',
+                  'billing.address_1', 'billing.address_2',
+                  'billing.country')
+        return fields
+
+    def shipping_fields(self):
+        fields = ('shipping.city', 'shipping.zipcode',
+                  'shipping.address_1', 'shipping.address_2',
+                  'shipping.country')
+        return fields
