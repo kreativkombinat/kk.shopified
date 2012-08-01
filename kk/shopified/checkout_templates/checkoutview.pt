@@ -13,6 +13,8 @@
       <h1 class="documentFirstHeading"
         i18n:translate="">Checkout</h1>
 
+      <div tal:attributes="data-tile string:${context/absolute_url}/@@kk.tiles.richtext/checkoutinfo" />
+
       <form tal:define="errors view/errors"
         tal:attributes="action request/URL"
         method="post">
@@ -209,17 +211,12 @@
                         <i class="icon-warning-sign" />
                         <span tal:replace="python:error['msg']" />
                       </div>
-                    <p class="help-block helpBlock"
-                      i18n:translate="">Helptext for the field</p>
                   </div>
               </div>
             </div>
 
             <div class="cell position-1:2 width-1:2">
               <h4 i18n:translate="">Billing Address</h4>
-              <a href="#checkout-address-billing"
-                class="show-details"
-                i18n:translate="">Add</a>
 
               <div class="details" id="checkout-address-billing">
                 <div class="control-group field"
@@ -327,8 +324,6 @@
                         <i class="icon-warning-sign" />
                         <span tal:replace="python:error['msg']" />
                       </div>
-                      <p class="help-block helpBlock"
-                        i18n:translate="">Helptext for the field</p>
                     </div>
                 </div>
 
@@ -336,12 +331,9 @@
             </div>
           </div>
         <div>
-        <div id="checkout-legal">
+          <div class="visualClear">&nbsp;</div>
+        <div id="checkout-legal" class="visualClear">
           <div tal:attributes="data-tile string:${context/absolute_url}/@@kk.tiles.richtext/termsandconditions" />
-          <h2 i18n:translate="">Terms and Conditions</h2>
-          <p i18n:translate="">I have read and understood the
-            <a href="#terms-and-conditions">terms and conditions</a>
-            that apply to orders from this shop</p>
         </div>
          <h2 i18n:translate="">Order Summary</h2>
       <tal:cart tal:condition="view/has_cart">
@@ -396,6 +388,11 @@
               <span tal:content="view/cart_net" />
             </th>
           </tr>
+          <tr>
+            <td colspan="5">
+              <div tal:attributes="data-tile string:${context/absolute_url}/@@kk.tiles.richtext/orderinformation" />
+            </td>
+          </tr>
         </tbody>
       </table>
       </tal:cart>
@@ -404,12 +401,12 @@
           <input type="submit"
             name="form.button.Submit"
             class="context btn"
-            value="Order now"
+            value="Jetzt kaufen"
             i18n:translate="" />
           <input type="submit"
             name="form.button.Enquiry"
             class="context btn"
-            value="Send order via email"
+            value="Anfrage per E-Mail"
             i18n:translate="" />
         </div>
       </form>

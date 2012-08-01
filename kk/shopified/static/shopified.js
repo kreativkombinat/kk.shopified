@@ -9,12 +9,5 @@
             // enhancement.
             return;
         }
-        var current, toggleBoxes = $('.details').hide();
-        $('a.show-details').on("click", function (e) {
-            e.preventDefault();
-            current = $(this).next('.details');
-            $('.details').not(current).slideUp('slow');
-            current.toggle('slow');
-        });
     });
 }(jQuery));
