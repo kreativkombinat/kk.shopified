@@ -96,8 +96,9 @@
                       <i class="icon-warning-sign" />
                       <span tal:replace="python:error['msg']" />
                 </div>
-                  <p class="help-block helpBlock"
-                    i18n:translate="">Helptext for the field</p>
+                  <div class="help-block helpBlock">
+                    <div tal:attributes="data-tile string:${context/absolute_url}/@@kk.tiles.richtext/commentshelp" />
+                  </div>
                 </div>
             </div>
 
