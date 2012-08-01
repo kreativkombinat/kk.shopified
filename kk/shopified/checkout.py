@@ -60,7 +60,7 @@ class CheckoutView(grok.View):
     def _process_payment(self, data):
         pstate = getMultiAdapter((self.context, self.request),
                                   name=u"plone_portal_state")
-        portal_url = pstate.portal_url
+        portal_url = pstate.portal_url()
         payment_settings = self._payment_settings()
         shop_url = payment_settings['shop_url']
         return_url = portal_url + shop_url + '/@@payment-processed'
@@ -81,11 +81,11 @@ class CheckoutView(grok.View):
                 "charset": "utf-8",
                 "first_name": self._url_quote(firstname),
                 "last_name": self._url_quote(lastname),
-                "address1": self._url_quote(data['address_1']),
-                "address2": self._url_quote(data['address_2']),
-                "city": self._url_quote(data['city']),
-                "country": self._url_quote(data['country']),
-                "zip": data['zipcode'],
+                "address1": self._url_quote(data['shipping.address1']),
+                "address2": self._url_quote(data['shipping.address2']),
+                "city": self._url_quote(data['shipping.city']),
+                "country": self._url_quote(data['shipping.country']),
+                "zip": data['shipping.zipcode'],
                 #"shipping_1": shipping_1
                 }
         cart = self.cart()
@@ -94,11 +94,12 @@ class CheckoutView(grok.View):
             name = "item_name_%s" % j
             quantity = "quantity_%s" % j
             amount = "amount_%s" % j
-            info[name] = self.url_quote(item['name'])
+            info[name] = self._url_quote(item['title'])
             info[quantity] = item['quantity']
             info[amount] = item['price']
         parameters = "&".join(["%s=%s" % (k, v) for (k, v) in info.items()])
         url = paypal_url + "?" + parameters
+        import pdb; pdb.set_trace( )
         self.context.REQUEST.RESPONSE.redirect(url)
         return 'SUCCESS'
 
@@ -179,7 +180,10 @@ class CheckoutView(grok.View):
 
     def _url_quote(self, value):
         if value:
-            encoded_value = urllib2.quote(value.encode('utf-8'))
+            try:
+                encoded_value = urllib2.quote(value.encode('utf-8'))
+            except:
+                encoded_value = urllib2.quote(value)
             return encoded_value
         else:
             return ''
@@ -192,7 +196,15 @@ class CheckoutView(grok.View):
 
     def required_fields(self):
         fields = ('fullname', 'email', 'phone',
-                  'billing.city', 'billing.zipcode',
-                  'billing.address_1', 'billing.address_2',
-                  'billing.country')
+                  'shipping.city', 'shipping.zipcode',
+                  'shipping.address_1', 'shipping.address_2',
+                  'shipping.country')
         return fields
+
+    def eu_countries(self):
+        countries = ('Belgium', 'Bulgaria', 'Czech Republic', 'Denmark',
+        'Estonia', 'Ireland', 'Greece', 'Spain', 'France', 'Italy', 'Cyprus',
+        'Latvia', 'Lithuania', 'Luxembourg', 'Hungary', 'Malta', 'Netherlands',
+        'Austria', 'Poland', 'Portugal', 'Romania', 'Slovenia', 'Slovakia',
+        'Finland', 'Sweden', 'United Kingdom')
+        return countries

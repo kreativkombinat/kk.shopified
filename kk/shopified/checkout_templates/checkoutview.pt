@@ -31,6 +31,7 @@
                 class="input-xlarge"
                 id="fullname"
                 name="fullname"
+                required="required"
                 tal:attributes="value python:error and view.default_value(error) or ''" />
                 <div class="help-block error"
                   tal:condition="err_msg">
@@ -196,6 +197,11 @@
                       name="shipping.country"
                       tal:attributes="value python:error and view.default_value(error) or ''">
                       <option value="Germany" i18n:translate="">Germany</option>
+                      <tal:block tal:repeat="country view/eu_countries">
+                        <option tal:attributes="value country"
+                          tal:content="country"
+                          i18n:translate="" />
+                      </tal:block>
                       <option value="EU" i18n:translate="">EU Country</option>
                     </select>
                     <div class="help-block error"
@@ -261,12 +267,12 @@
                               err_msg python:error and error['active'] == True"
                   tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
                   <label class="control-label"
-                    for="shipping.address1"
+                    for="billing.address1"
                     i18n:translate="">Address 1</label>
                     <div class="controls">
                       <input type="text" class="input-xlarge"
-                        id="shipping.address1"
-                        name="shipping.address1"
+                        id="biling.address1"
+                        name="billing.address1"
                         tal:attributes="value python:error and view.default_value(error) or ''" />
                         <div class="help-block error"
                         tal:condition="err_msg">
@@ -281,13 +287,13 @@
                               err_msg python:error and error['active'] == True"
                   tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
                   <label class="control-label"
-                    for="shipping.address2"
+                    for="billing.address2"
                     i18n:translate="">Address 2</label>
                     <div class="controls">
                       <input type="text"
                         class="input-xlarge"
-                        id="shipping.address2"
-                        name="shipping.address2"
+                        id="billing.address2"
+                        name="billing.address2"
                         tal:attributes="value python:error and view.default_value(error) or ''" />
                         <div class="help-block error"
                         tal:condition="err_msg">
@@ -302,15 +308,19 @@
                               err_msg python:error and error['active'] == True"
                   tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
                   <label class="control-label"
-                    for="country"
+                    for="billing.country"
                     i18n:translate="">Country</label>
                     <div class="controls">
                       <select class="input-xlarge"
-                        id="shipping.country"
-                        name="shipping.country"
+                        id="billing.country"
+                        name="billing.country"
                         tal:attributes="value python:error and view.default_value(error) or ''">
                         <option value="Germany" i18n:translate="">Germany</option>
-                        <option value="EU" i18n:translate="">EU Country</option>
+                        <tal:block tal:repeat="country view/eu_countries">
+                          <option tal:attributes="value country"
+                            tal:content="country"
+                            i18n:translate="" />
+                        </tal:block>
                       </select>
                       <div class="help-block error"
                         tal:condition="err_msg">
@@ -327,6 +337,7 @@
           </div>
         <div>
         <div id="checkout-legal">
+          <div tal:attributes="data-tile string:${context/absolute_url}/@@kk.tiles.richtext/termsandconditions" />
           <h2 i18n:translate="">Terms and Conditions</h2>
           <p i18n:translate="">I have read and understood the
             <a href="#terms-and-conditions">terms and conditions</a>
