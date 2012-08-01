@@ -28,8 +28,7 @@ class CheckoutView(grok.View):
         context = aq_inner(self.context)
         self.errors = {}
         unwanted = ('_authenticator', 'form.button.Submit')
-        billing = self.billing_fields()
-        shipping = self.shipping_fields()
+        required = self.required_fields()
         if 'form.button.Submit' in self.request:
             form = self.request.form
             authenticator = getMultiAdapter((context, self.request),
@@ -42,7 +41,7 @@ class CheckoutView(grok.View):
             for value in form:
                 if value not in unwanted:
                     formdata[value] = form[value]
-                    if not form[value]:
+                    if value in required and not form[value]:
                         error = {}
                         error['active'] = True
                         error['msg'] = _(u"This field is required")
@@ -185,14 +184,15 @@ class CheckoutView(grok.View):
         else:
             return ''
 
-    def billing_fields(self):
-        fields = ('billing.city', 'billing.zipcode',
+    def default_value(self, error):
+        value = ''
+        if error['active'] == False:
+            value = error['msg']
+        return value
+
+    def required_fields(self):
+        fields = ('fullname', 'email', 'phone',
+                  'billing.city', 'billing.zipcode',
                   'billing.address_1', 'billing.address_2',
                   'billing.country')
-        return fields
-
-    def shipping_fields(self):
-        fields = ('shipping.city', 'shipping.zipcode',
-                  'shipping.address_1', 'shipping.address_2',
-                  'shipping.country')
         return fields

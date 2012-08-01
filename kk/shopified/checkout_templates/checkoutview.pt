@@ -13,149 +13,335 @@
       <h1 class="documentFirstHeading"
         i18n:translate="">Checkout</h1>
 
-      <form tal:attributes="action request/URL"
+      <form tal:define="errors view/errors"
+        tal:attributes="action request/URL"
         method="post">
         <div>
           <h2 i18n:translate="">Personal Details</h2>
-          <div class="control-group field">
-            <label class="control-label" for="fullname">Fullname</label>
+          <div class="control-group field"
+            tal:define="error errors/fullname | nothing;
+                        err_msg python:error and error['active'] == True"
+            tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
+            <label class="control-label"
+              for="fullname"
+              i18n:translate="">Fullname</label>
             <div class="controls">
-              <input type="text" class="input-xlarge" id="fullname"
-                name="fullname">
-            </div>
-          </div>
-          <div class="control-group field">
-            <label class="control-label" for="phone">Phone</label>
-            <div class="controls">
-              <input type="text" class="input-xlarge" id="phone"
-                name="phone">
-            </div>
-          </div>
-          <div class="control-group field">
-            <label class="control-label" for="email">E-Mail</label>
-            <div class="controls">
-              <input type="text" class="input-xlarge" id="email"
-                name="email">
-            </div>
-          </div>
-          <div class="control-group field">
-              <label class="control-label" for="country">Comments</label>
-                <div class="controls">
-                  <textarea class="input-xlarge" id="address-two"
-                    name="address-two" rows="4" />
-                  <p class="help-block helpBlock">Helptext for the field</p>
+              <input
+                type="text"
+                class="input-xlarge"
+                id="fullname"
+                name="fullname"
+                tal:attributes="value python:error and view.default_value(error) or ''" />
+                <div class="help-block error"
+                  tal:condition="err_msg">
+                  <i class="icon-warning-sign" />
+                  <span tal:replace="python:error['msg']" />
                 </div>
             </div>
+          </div>
+
+          <div class="control-group field"
+            tal:define="error errors/phone | nothing;
+                        err_msg python:error and error['active'] == True"
+            tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
+            <label class="control-label"
+              for="phone"
+              i18n:translate="">Phone</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="phone"
+                name="phone"
+                tal:attributes="value python:error and view.default_value(error) or ''" />
+                <div class="help-block error"
+                  tal:condition="err_msg">
+                  <i class="icon-warning-sign" />
+                  <span tal:replace="python:error['msg']" />
+                </div>
+            </div>
+          </div>
+          <div class="control-group field"
+            tal:define="error errors/email | nothing;
+                        err_msg python:error and error['active'] == True"
+            tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
+            <label class="control-label"
+              for="email"
+              i18n:translate="">E-Mail</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="email"
+                name="email"
+                tal:attributes="value python:error and view.default_value(error) or ''" />
+                <div class="help-block error"
+                  tal:condition="err_msg">
+                  <i class="icon-warning-sign" />
+                  <span tal:replace="python:error['msg']" />
+                </div>
+            </div>
+          </div>
+
+          <div class="control-group field"
+            tal:define="error errors/comment | nothing;
+                        err_msg python:error and error['active'] == True"
+            tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
+              <label class="control-label"
+                for="comment"
+                i18n:translate="">Comments</label>
+                <div class="controls">
+                  <textarea class="input-xlarge" id="comment"
+                    name="comment" rows="4"
+                    tal:attributes="value python:error and view.default_value(error) or ''" />
+                    <div class="help-block error"
+                      tal:condition="err_msg">
+                      <i class="icon-warning-sign" />
+                      <span tal:replace="python:error['msg']" />
+                </div>
+                  <p class="help-block helpBlock"
+                    i18n:translate="">Helptext for the field</p>
+                </div>
+            </div>
+
           <h2 i18n:translate="">Address Information</h2>
-          <p class="help-text">
+          <p class="help-text" i18n:translate="">
             Please enter the shipping address</p>
+
           <div class="row">
             <div class="cell position-0 width-1:2">
               <h4 i18n:translate="">Shipping Address</h4>
-              <div class="control-group field">
-                <label class="control-label" for="city">City</label>
+
+              <div class="control-group field"
+                tal:define="error errors/fullname | nothing;
+                            err_msg python:error and error['active'] == True"
+                tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
+                <label class="control-label"
+                  for="shipping.city"
+                  i18n:translate="">City</label>
                   <div class="controls">
-                    <input type="text" class="input-xlarge" id="city"
-                      name="city">
+                    <input type="text" class="input-xlarge" id="shipping.city"
+                      name="shipping.city"
+                      tal:attributes="value python:error and view.default_value(error) or ''" />
+                      <div class="help-block error"
+                        tal:condition="err_msg">
+                        <i class="icon-warning-sign" />
+                        <span tal:replace="python:error['msg']" />
+                      </div>
                   </div>
               </div>
-              <div class="control-group field">
-                <label class="control-label" for="zipcode">Zipcode</label>
+
+              <div class="control-group field"
+                tal:define="error errors/fullname | nothing;
+                            err_msg python:error and error['active'] == True"
+                tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
+                <label class="control-label"
+                  for="shipping.zipcode"
+                  i18n:translate="">Zipcode</label>
                   <div class="controls">
-                    <input type="text" class="input-xlarge" id="zipcode"
-                      name="zipcode">
+                    <input type="text" class="input-xlarge" id="shipping.zipcode"
+                      name="shipping.zipcode"
+                      tal:attributes="value python:error and view.default_value(error) or ''" />
+                      <div class="help-block error"
+                        tal:condition="err_msg">
+                        <i class="icon-warning-sign" />
+                        <span tal:replace="python:error['msg']" />
+                      </div>
                   </div>
               </div>
-              <div class="control-group field">
-                <label class="control-label" for="address-one">Address 1</label>
+
+              <div class="control-group field"
+                tal:define="error errors/fullname | nothing;
+                            err_msg python:error and error['active'] == True"
+                tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
+                <label class="control-label"
+                  for="shipping.address1"
+                  i18n:translate="">Address 1</label>
                   <div class="controls">
-                    <input type="text" class="input-xlarge" id="address-one"
-                      name="address-one">
+                    <input type="text" class="input-xlarge"
+                      id="shipping.address1"
+                      name="shipping.address1"
+                      tal:attributes="value python:error and view.default_value(error) or ''" />
+                      <div class="help-block error"
+                        tal:condition="err_msg">
+                        <i class="icon-warning-sign" />
+                        <span tal:replace="python:error['msg']" />
+                      </div>
                   </div>
               </div>
-              <div class="control-group field">
-                <label class="control-label" for="address-two">Address 2</label>
+
+              <div class="control-group field"
+                tal:define="error errors/fullname | nothing;
+                            err_msg python:error and error['active'] == True"
+                tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
+                <label class="control-label"
+                  for="shipping.address2"
+                  i18n:translate="">Address 2</label>
                   <div class="controls">
-                    <input type="text" class="input-xlarge" id="address-two"
-                      name="address-two">
+                    <input type="text" class="input-xlarge" id="shipping.address2"
+                      name="shipping.address2"
+                      tal:attributes="value python:error and view.default_value(error) or ''" />
+                      <div class="help-block error"
+                        tal:condition="err_msg">
+                        <i class="icon-warning-sign" />
+                        <span tal:replace="python:error['msg']" />
+                      </div>
                   </div>
               </div>
-              <div class="control-group field">
-                <label class="control-label" for="country">Country</label>
+
+              <div class="control-group field"
+                tal:define="error errors/fullname | nothing;
+                            err_msg python:error and error['active'] == True"
+                tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
+                <label class="control-label"
+                  for="shipping.country"
+                  i18n:translate="">Country</label>
                   <div class="controls">
-                    <select class="input-xlarge" id="country"
-                      name="country">
-                      <option value="Germany">Germany</option>
-                      <option value="EU">EU Country</option>
+                    <select class="input-xlarge"
+                      id="shipping.country"
+                      name="shipping.country"
+                      tal:attributes="value python:error and view.default_value(error) or ''">
+                      <option value="Germany" i18n:translate="">Germany</option>
+                      <option value="EU" i18n:translate="">EU Country</option>
                     </select>
-                    <p class="help-block helpBlock">Helptext for the field</p>
+                    <div class="help-block error"
+                        tal:condition="err_msg">
+                        <i class="icon-warning-sign" />
+                        <span tal:replace="python:error['msg']" />
+                      </div>
+                    <p class="help-block helpBlock"
+                      i18n:translate="">Helptext for the field</p>
                   </div>
               </div>
             </div>
+
             <div class="cell position-1:2 width-1:2">
               <h4 i18n:translate="">Billing Address</h4>
               <a href="#checkout-address-billing"
-                class="show-details">Add</a>
+                class="show-details"
+                i18n:translate="">Add</a>
+
               <div class="details" id="checkout-address-billing">
-                <div class="control-group field">
-                  <label class="control-label" for="city">City</label>
+                <div class="control-group field"
+                  tal:define="error errors/fullname | nothing;
+                              err_msg python:error and error['active'] == True"
+                  tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
+                  <label class="control-label"
+                    for="billing.city"
+                    i18n:translate="">City</label>
                     <div class="controls">
-                      <input type="text" class="input-xlarge" id="city"
-                        name="city">
+                      <input type="text" class="input-xlarge"
+                        id="billing.city"
+                        name="billing.city"
+                        tal:attributes="value python:error and view.default_value(error) or ''" />
+                        <div class="help-block error"
+                        tal:condition="err_msg">
+                        <i class="icon-warning-sign" />
+                        <span tal:replace="python:error['msg']" />
+                      </div>
                     </div>
                 </div>
-                <div class="control-group field">
-                  <label class="control-label" for="zipcode">Zipcode</label>
+
+                <div class="control-group field"
+                  tal:define="error errors/fullname | nothing;
+                              err_msg python:error and error['active'] == True"
+                  tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
+                  <label class="control-label"
+                    for="billing.zipcode"
+                    i18n:translate="">Zipcode</label>
                     <div class="controls">
-                      <input type="text" class="input-xlarge" id="zipcode"
-                        name="zipcode">
+                      <input type="text" class="input-xlarge"
+                        id="billing.zipcode"
+                        name="billing.zipcode"
+                        tal:attributes="value python:error and view.default_value(error) or ''" />
+                        <div class="help-block error"
+                        tal:condition="err_msg">
+                        <i class="icon-warning-sign" />
+                        <span tal:replace="python:error['msg']" />
+                      </div>
                     </div>
                 </div>
-                <div class="control-group field">
-                  <label class="control-label" for="address-one">Address 1</label>
+
+                <div class="control-group field"
+                  tal:define="error errors/fullname | nothing;
+                              err_msg python:error and error['active'] == True"
+                  tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
+                  <label class="control-label"
+                    for="shipping.address1"
+                    i18n:translate="">Address 1</label>
                     <div class="controls">
-                      <input type="text" class="input-xlarge" id="address-one"
-                        name="address-one">
+                      <input type="text" class="input-xlarge"
+                        id="shipping.address1"
+                        name="shipping.address1"
+                        tal:attributes="value python:error and view.default_value(error) or ''" />
+                        <div class="help-block error"
+                        tal:condition="err_msg">
+                        <i class="icon-warning-sign" />
+                        <span tal:replace="python:error['msg']" />
+                      </div>
                     </div>
                 </div>
-                <div class="control-group field">
-                  <label class="control-label" for="address-two">Address 2</label>
+
+                <div class="control-group field"
+                  tal:define="error errors/fullname | nothing;
+                              err_msg python:error and error['active'] == True"
+                  tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
+                  <label class="control-label"
+                    for="shipping.address2"
+                    i18n:translate="">Address 2</label>
                     <div class="controls">
-                      <input type="text" class="input-xlarge" id="address-two"
-                        name="address-two">
+                      <input type="text"
+                        class="input-xlarge"
+                        id="shipping.address2"
+                        name="shipping.address2"
+                        tal:attributes="value python:error and view.default_value(error) or ''" />
+                        <div class="help-block error"
+                        tal:condition="err_msg">
+                        <i class="icon-warning-sign" />
+                        <span tal:replace="python:error['msg']" />
+                      </div>
                     </div>
                 </div>
-                <div class="control-group field">
-                  <label class="control-label" for="country">Country</label>
+
+                <div class="control-group field"
+                  tal:define="error errors/fullname | nothing;
+                              err_msg python:error and error['active'] == True"
+                  tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
+                  <label class="control-label"
+                    for="country"
+                    i18n:translate="">Country</label>
                     <div class="controls">
-                      <select class="input-xlarge" id="country"
-                        name="country">
-                        <option value="Germany">Germany</option>
-                        <option value="EU">EU Country</option>
+                      <select class="input-xlarge"
+                        id="shipping.country"
+                        name="shipping.country"
+                        tal:attributes="value python:error and view.default_value(error) or ''">
+                        <option value="Germany" i18n:translate="">Germany</option>
+                        <option value="EU" i18n:translate="">EU Country</option>
                       </select>
-                      <p class="help-block helpBlock">Helptext for the field</p>
+                      <div class="help-block error"
+                        tal:condition="err_msg">
+                        <i class="icon-warning-sign" />
+                        <span tal:replace="python:error['msg']" />
+                      </div>
+                      <p class="help-block helpBlock"
+                        i18n:translate="">Helptext for the field</p>
                     </div>
                 </div>
+
               </div>
             </div>
           </div>
         <div>
         <div id="checkout-legal">
-          <h2>Terms and Conditions</h2>
-          <p>I have read and understood the
+          <h2 i18n:translate="">Terms and Conditions</h2>
+          <p i18n:translate="">I have read and understood the
             <a href="#terms-and-conditions">terms and conditions</a>
             that apply to orders from this shop</p>
         </div>
-         <h2>Order Summary</h2>
+         <h2 i18n:translate="">Order Summary</h2>
       <tal:cart tal:condition="view/has_cart">
       <table class="listing" style="width: 100%">
         <thead>
           <tr>
-            <th>Amount</th>
-            <th>Image</th>
-            <th>Item</th>
-            <th>Unit Price</th>
-            <th>Total</th>
+            <th i18n:translate="">Amount</th>
+            <th i18n:translate="">Image</th>
+            <th i18n:translate="">Item</th>
+            <th i18n:translate="">Unit Price</th>
+            <th i18n:translate="">Total</th>
           </tr>
         </thead>
         <tbody tal:define="cart view/cart">
@@ -180,7 +366,7 @@
           </tr>
           <tr tal:condition="not:view/total_is_zero">
             <td colspan="3" />
-            <td colspan="1" i18n:translate="">shipping</td>
+            <td colspan="1" i18n:translate="">Shipping</td>
             <td>
               <span tal:content="view/cart_shipping" />
             </td>
@@ -202,6 +388,7 @@
         </tbody>
       </table>
       </tal:cart>
+      <span tal:replace="structure context/@@authenticator/authenticator"/>
         <div class="form-actions formControls">
           <input type="submit"
             name="form.button.Submit"
