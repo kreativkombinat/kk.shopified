@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2012-08-01 17:19+0100\n"
+"PO-Revision-Date: 2012-08-01 17:46+0100\n"
 "Last-Translator: Christoph Boehner <cb@vorwaerts-werbung.de>\n"
 "Language-Team: KK Language Team <info@kreativkombinat.de>\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,10 @@ msgstr "${item_count} Artikel im Warenkorb"
 msgid "%s cart items successfully updated"
 msgstr "%s Artikel aus dem Warenkorb wurden erfolgreich aktualisiert"
 
+#: ./../shoppingcart_templates/shoppingcartview.pt:34
+msgid "Actions"
+msgstr "Aktionen"
+
 #: ./../shoppingcart.py:126
 msgid "Add item to cart executed: %s %s "
 msgstr "Artikel in den Warenkorb gelegt: %s %s "
@@ -39,6 +43,7 @@ msgid "Address Information"
 msgstr "Versand- und Rechnungsadresse"
 
 #: ./../checkout_templates/checkoutview.pt:343
+#: ./../shoppingcart_templates/shoppingcartview.pt:29
 msgid "Amount"
 msgstr "Anzahl"
 
@@ -47,7 +52,7 @@ msgid "Billing Address"
 msgstr "Rechnungsadresse"
 
 #: ./../checkout_templates/checkoutview.pt:13
-#: ./../shoppingcart_templates/shoppingcartview.pt:95
+#: ./../shoppingcart_templates/shoppingcartview.pt:96
 msgid "Checkout"
 msgstr "Kasse"
 
@@ -59,13 +64,17 @@ msgstr "Ort"
 msgid "Comments"
 msgstr "Kommentare"
 
-#: ./../shoppingcart_templates/shoppingcartview.pt:101
+#: ./../shoppingcart_templates/shoppingcartview.pt:102
 msgid "Continue shopping"
 msgstr "Weiter einkaufen"
 
 #: ./../checkout_templates/checkoutview.pt:193
 msgid "Country"
 msgstr "Land"
+
+#: ./../shoppingcart_templates/shoppingcartview.pt:65
+msgid "Delete"
+msgstr "Artikel entfernen"
 
 #: ./../shoppingcart_templates/cartremoveitem.pt:21
 msgid "Do you really want to delete ${DYNAMIC_CONTENT} from the shopping cart?"
@@ -104,10 +113,12 @@ msgid "If you have any questions about your payment, please"
 msgstr "Sollten Sie weitere Fragen zu Ihrer Bestellung haben, können Sie uns"
 
 #: ./../checkout_templates/checkoutview.pt:344
+#: ./../shoppingcart_templates/shoppingcartview.pt:30
 msgid "Image"
 msgstr "Produktabbildung"
 
 #: ./../checkout_templates/checkoutview.pt:345
+#: ./../shoppingcart_templates/shoppingcartview.pt:31
 msgid "Item"
 msgstr "Artikel"
 
@@ -210,7 +221,7 @@ msgid "Shopping Cart"
 msgstr "Warenkorb"
 
 #: ./../checkout_templates/checkoutview.pt:386
-#: ./../shoppingcart_templates/shoppingcartview.pt:72
+#: ./../shoppingcart_templates/shoppingcartview.pt:73
 msgid "TOTAL"
 msgstr "Gesamtpreis inkl. MwSt."
 
@@ -223,6 +234,7 @@ msgid "This field is required"
 msgstr "Dies ist ein Pflichtfeld"
 
 #: ./../checkout_templates/checkoutview.pt:347
+#: ./../shoppingcart_templates/shoppingcartview.pt:33
 msgid "Total"
 msgstr "Gesamtpreis inkl. MwSt."
 
@@ -231,6 +243,7 @@ msgid "Transaction ID: ${txn_id}"
 msgstr "Transaktions ID: ${txn_id}"
 
 #: ./../checkout_templates/checkoutview.pt:346
+#: ./../shoppingcart_templates/shoppingcartview.pt:32
 msgid "Unit Price"
 msgstr "Einzelpreis"
 

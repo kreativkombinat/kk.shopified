@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-08-01 15:14+0000\n"
+"POT-Creation-Date: 2012-08-01 15:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,10 @@ msgstr ""
 msgid "%s cart items successfully updated"
 msgstr ""
 
+#: ./../shoppingcart_templates/shoppingcartview.pt:34
+msgid "Actions"
+msgstr ""
+
 #: ./../shoppingcart.py:126
 msgid "Add item to cart executed: %s %s "
 msgstr ""
@@ -46,6 +50,7 @@ msgid "Address Information"
 msgstr ""
 
 #: ./../checkout_templates/checkoutview.pt:343
+#: ./../shoppingcart_templates/shoppingcartview.pt:29
 msgid "Amount"
 msgstr ""
 
@@ -54,7 +59,7 @@ msgid "Billing Address"
 msgstr ""
 
 #: ./../checkout_templates/checkoutview.pt:13
-#: ./../shoppingcart_templates/shoppingcartview.pt:95
+#: ./../shoppingcart_templates/shoppingcartview.pt:96
 msgid "Checkout"
 msgstr ""
 
@@ -66,12 +71,16 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: ./../shoppingcart_templates/shoppingcartview.pt:101
+#: ./../shoppingcart_templates/shoppingcartview.pt:102
 msgid "Continue shopping"
 msgstr ""
 
 #: ./../checkout_templates/checkoutview.pt:193
 msgid "Country"
+msgstr ""
+
+#: ./../shoppingcart_templates/shoppingcartview.pt:65
+msgid "Delete"
 msgstr ""
 
 #: ./../shoppingcart_templates/cartremoveitem.pt:21
@@ -111,10 +120,12 @@ msgid "If you have any questions about your payment, please"
 msgstr ""
 
 #: ./../checkout_templates/checkoutview.pt:344
+#: ./../shoppingcart_templates/shoppingcartview.pt:30
 msgid "Image"
 msgstr ""
 
 #: ./../checkout_templates/checkoutview.pt:345
+#: ./../shoppingcart_templates/shoppingcartview.pt:31
 msgid "Item"
 msgstr ""
 
@@ -217,7 +228,7 @@ msgid "Shopping Cart"
 msgstr ""
 
 #: ./../checkout_templates/checkoutview.pt:386
-#: ./../shoppingcart_templates/shoppingcartview.pt:72
+#: ./../shoppingcart_templates/shoppingcartview.pt:73
 msgid "TOTAL"
 msgstr ""
 
@@ -230,6 +241,7 @@ msgid "This field is required"
 msgstr ""
 
 #: ./../checkout_templates/checkoutview.pt:347
+#: ./../shoppingcart_templates/shoppingcartview.pt:33
 msgid "Total"
 msgstr ""
 
@@ -238,6 +250,7 @@ msgid "Transaction ID: ${txn_id}"
 msgstr ""
 
 #: ./../checkout_templates/checkoutview.pt:346
+#: ./../shoppingcart_templates/shoppingcartview.pt:32
 msgid "Unit Price"
 msgstr ""
 
