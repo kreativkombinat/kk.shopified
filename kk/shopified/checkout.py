@@ -107,7 +107,7 @@ class CheckoutView(grok.View):
         url = paypal_url + "?" + parameters
         txn_item = self._update_cart_on_checkout(txn_id)
         if txn_item:
-            self.context.request.response.redirect(url)
+            self.context.REQUEST.RESPONSE.redirect(url)
             return 'SUCCESS'
 
     def _update_cart_on_checkout(self, txn_id):
