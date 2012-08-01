@@ -25,6 +25,12 @@ class CartUpdaterUtility(grok.GlobalUtility):
             del cart[item_uuid]
             return item_uuid
 
+    def mark(self, txn_id):
+        """ Mark cart when initializing transactions """
+        cart = get_cart()
+        cart['txn_id'] = txn_id
+        return txn_id
+
     def is_incremental_update(self, product_code, quantity):
         cart = get_cart()
         item_id = product_code

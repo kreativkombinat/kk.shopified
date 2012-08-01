@@ -1,3 +1,5 @@
+import os
+import base64
 import urllib2
 from five import grok
 from Acquisition import aq_inner
@@ -15,6 +17,7 @@ from kk.shopified.utils import get_cart
 from kk.shopified.utils import format_price
 
 from kk.shopified.interfaces import IShopifiedSettings
+from kk.shopified.interfaces import ICartUpdaterUtility
 
 from kk.shopified import MessageFactory as _
 
@@ -62,8 +65,10 @@ class CheckoutView(grok.View):
                                   name=u"plone_portal_state")
         portal_url = pstate.portal_url()
         payment_settings = self._payment_settings()
+        txn_id = self._generate_txn_id()
         shop_url = payment_settings['shop_url']
-        return_url = portal_url + shop_url + '/@@payment-processed'
+        base_url = portal_url + shop_url
+        return_url = base_url + '/@@payment-processed?oid=' + txn_id
         merchant_key = payment_settings['key']
         paypal_url = payment_settings['url']
         customername = data['fullname']
@@ -71,6 +76,7 @@ class CheckoutView(grok.View):
         fname = name[0:int(len(name) - 1)]
         firstname = ' '.join(fname)
         lastname = name[-1]
+        shipping_costs = self.cart_shipping()
         info = {"cmd": "_cart",
                 "upload": "1",
                 "business": merchant_key,
@@ -86,7 +92,7 @@ class CheckoutView(grok.View):
                 "city": self._url_quote(data['shipping.city']),
                 "country": self._url_quote(data['shipping.country']),
                 "zip": data['shipping.zipcode'],
-                #"shipping_1": shipping_1
+                "shipping_1": shipping_costs
                 }
         cart = self.cart()
         for i, item in enumerate(cart):
@@ -99,9 +105,16 @@ class CheckoutView(grok.View):
             info[amount] = item['price']
         parameters = "&".join(["%s=%s" % (k, v) for (k, v) in info.items()])
         url = paypal_url + "?" + parameters
+        txn_item = self._update_cart_on_checkout(txn_id)
         import pdb; pdb.set_trace( )
-        self.context.REQUEST.RESPONSE.redirect(url)
-        return 'SUCCESS'
+        if txn_item:
+            self.context.request.response.redirect(url)
+            return 'SUCCESS'
+
+    def _update_cart_on_checkout(self, txn_id):
+        updater = getUtility(ICartUpdaterUtility)
+        item = updater.mark(txn_id)
+        return item
 
     def _payment_settings(self):
         registry = getUtility(IRegistry)
@@ -121,21 +134,22 @@ class CheckoutView(grok.View):
         cart = get_cart()
         data = []
         for item in cart:
-            info = {}
-            product = uuidToObject(item)
-            quantity = cart[item]
-            info['uuid'] = item
-            info['quantity'] = quantity
-            info['title'] = product.Title()
-            info['description'] = product.Description()
-            info['image_tag'] = self.image_tag(product)
-            info['url'] = product.absolute_url()
-            info['price'] = product.price
-            info['shipping'] = product.shipping_price
-            info['price_pretty'] = format_price(product.price)
-            total = quantity * int(product.price)
-            info['price_total'] = format_price(total)
-            data.append(info)
+            if item != 'txn_id':
+                info = {}
+                product = uuidToObject(item)
+                quantity = cart[item]
+                info['uuid'] = item
+                info['quantity'] = quantity
+                info['title'] = product.Title()
+                info['description'] = product.Description()
+                info['image_tag'] = self.image_tag(product)
+                info['url'] = product.absolute_url()
+                info['price'] = product.price
+                info['shipping'] = product.shipping_price
+                info['price_pretty'] = format_price(product.price)
+                total = quantity * int(product.price)
+                info['price_total'] = format_price(total)
+                data.append(info)
         return data
 
     def has_cart(self):
@@ -187,6 +201,9 @@ class CheckoutView(grok.View):
             return encoded_value
         else:
             return ''
+
+    def _generate_txn_id(self):
+        return base64.b64encode(os.urandom(24))
 
     def default_value(self, error):
         value = ''

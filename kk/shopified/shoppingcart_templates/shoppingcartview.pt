@@ -58,7 +58,7 @@
               </h5>
               <p class="discreet" tal:content="item/description" />
             </td>
-            <td tal:content="item/price">XX &euro;</td>
+            <td tal:content="item/price_pretty">XX &euro;</td>
             <td tal:content="item/price_total">XX Total</td>
             <td tal:define="context_url context/absolute_url;
                             item_uuid item/uuid">
