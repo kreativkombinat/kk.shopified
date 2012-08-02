@@ -29,11 +29,10 @@ class PaymentProcessed(grok.View):
         txn_id = cart['txn_id']
         if self.is_equal(order_id, txn_id):
             wipe_cart()
-            next_url = here_url + '/@@order-confirmation?txnid=' + txn_id
-            return self.request.response.redirect(next_url)
+            self.next_url = here_url + '/@@order-confirmation?txnid=' + txn_id
 
     def render(self):
-        return ''
+        return self.request.response.redirect(self.next_url)
 
     def is_equal(self, a, b):
         if len(a) != len(b):

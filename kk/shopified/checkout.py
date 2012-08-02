@@ -87,7 +87,8 @@ class CheckoutView(grok.View):
         payment_settings = self._payment_settings()
         shop_url = payment_settings['shop_url']
         base_url = portal_url + shop_url
-        txn_id = self._generate_txn_id()
+        txnid = self._generate_txn_id()
+        txn_id = self._url_quote(txnid)
         return_url = base_url + '/@@payment-processed?oid=' + txn_id
         merchant_key = payment_settings['key']
         paypal_url = payment_settings['url']
@@ -96,7 +97,7 @@ class CheckoutView(grok.View):
         fname = name[0:int(len(name) - 1)]
         firstname = ' '.join(fname)
         lastname = name[-1]
-        shipping_costs = self.cart_shipping()
+        shipping_costs = self._calculate_shipping(data['shipping.country'])
         info = {"cmd": "_cart",
                 "upload": "1",
                 "business": merchant_key,
@@ -135,7 +136,8 @@ class CheckoutView(grok.View):
                                   name=u"plone_portal_state")
         portal_url = pstate.portal_url()
         settings = self._payment_settings()
-        txn_id = self._generate_txn_id()
+        txnid = self._generate_txn_id()
+        txn_id = self._url_quote(txnid)
         shop_url = settings['shop_url']
         base_url = portal_url + shop_url
         success_url = base_url + '/@@payment-processed?oid=' + txn_id
@@ -145,9 +147,14 @@ class CheckoutView(grok.View):
         options = data
         cart = self.cart()
         options['cartitems'] = cart
-        options['cart_shipping'] = self.cart_shipping()
-        options['cart_vat'] = self.cart_vat()
-        options['cart_net'] = self.cart_net()
+        country = data['shipping.country']
+        shipping = self._calculate_shipping(country)
+        net = self._calculate_cart_net(shipping)
+        vat = self._calculate_cart_vat(net)
+        options['cart_shipping'] = shipping
+        options['cart_vat'] = vat
+        options['cart_net'] = net
+        import pdb; pdb.set_trace( )
         body = ViewPageTemplateFile("enquiry_email.pt")(self, **options)
         bodytext = safe_unicode(body).encode('utf-8')
         body_plaintext = self.create_plaintext_message(bodytext)
@@ -178,7 +185,7 @@ class CheckoutView(grok.View):
         for item in self.cart():
             updater.delete(item['uuid'])
         item = updater.mark(txn_id)
-        return item
+        return txn_id
 
     def _payment_settings(self):
         registry = getUtility(IRegistry)
@@ -186,7 +193,7 @@ class CheckoutView(grok.View):
         processor = settings.paypal_url
         info = {}
         info['shop_url'] = settings.shop_url
-        info['shop_email'] = settings.shop_email    
+        info['shop_email'] = settings.shop_email
         if processor == 'Sandbox':
             info['key'] = settings.paypal_sandbox
             info['url'] = 'https://www.sandbox.paypal.com/cgi-bin/webscr'
@@ -249,15 +256,27 @@ class CheckoutView(grok.View):
             if value:
                 shipping_value = value * int(item['quantity'])
                 shipping = shipping + shipping_value
-            return format_price(shipping)
+        return format_price(shipping)
 
-    def image_tag(self, obj):
-        scales = getMultiAdapter((obj, self.request), name='images')
-        scale = scales.scale('image', scale='thumb')
-        imageTag = None
-        if scale is not None:
-            imageTag = scale.tag()
-        return imageTag
+    def _calculate_shipping(self, country):
+        shipping = 0.0
+        for item in self.cart():
+            value = item['shipping']
+            if value:
+                shipping_value = value * int(item['quantity'])
+                shipping = shipping + shipping_value
+        if country in self.eu_countries():
+            shipping = shipping + 10.0
+        return shipping
+
+    def _calculate_cart_net(self, shipping):
+        total = self.cart_total()
+        net = total + shipping
+        return format_price(net)
+
+    def _calculate_cart_vat(self, net):
+        vat = net * 0.19
+        return format_price(vat)
 
     def _url_quote(self, value):
         if value:
@@ -303,6 +322,14 @@ class CheckoutView(grok.View):
         if error['active'] == False:
             value = error['msg']
         return value
+
+    def image_tag(self, obj):
+        scales = getMultiAdapter((obj, self.request), name='images')
+        scale = scales.scale('image', scale='thumb')
+        imageTag = None
+        if scale is not None:
+            imageTag = scale.tag()
+        return imageTag
 
     def required_fields(self):
         fields = ('fullname', 'email', 'shipping.city', 'shipping.zipcode',
