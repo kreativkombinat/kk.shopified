@@ -18,7 +18,7 @@ class ConfirmationView(grok.View):
         if self.is_equal(order_id, self.txn_id):
             wipe_cart()
 
-    def is_equal(a, b):
+    def is_equal(self, a, b):
         if len(a) != len(b):
             return False
         result = 0

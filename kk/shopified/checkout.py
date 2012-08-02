@@ -1,6 +1,13 @@
 import os
 import base64
 import urllib2
+import cStringIO
+import formatter
+from htmllib import HTMLParser
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.Header import Header
+
 from five import grok
 from Acquisition import aq_inner
 from AccessControl import Unauthorized
@@ -10,10 +17,12 @@ from zope.component import getMultiAdapter
 
 from plone.app.uuid.utils import uuidToObject
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.interfaces import IContentish
+from Products.statusmessages.interfaces import IStatusMessage
 
 from kk.shopified.utils import get_cart
 from kk.shopified.utils import format_price
@@ -76,9 +85,9 @@ class CheckoutView(grok.View):
                                   name=u"plone_portal_state")
         portal_url = pstate.portal_url()
         payment_settings = self._payment_settings()
-        txn_id = self._generate_txn_id()
         shop_url = payment_settings['shop_url']
         base_url = portal_url + shop_url
+        txn_id = self._generate_txn_id()
         return_url = base_url + '/@@payment-processed?oid=' + txn_id
         merchant_key = payment_settings['key']
         paypal_url = payment_settings['url']
@@ -122,27 +131,51 @@ class CheckoutView(grok.View):
             return 'SUCCESS'
 
     def _send_enquiry(self, data):
+        pstate = getMultiAdapter((self.context, self.request),
+                                  name=u"plone_portal_state")
+        portal_url = pstate.portal_url()
         settings = self._payment_settings()
-        shop_url = settings['url']
+        shop_url = settings['shop_url']
+        success_url = portal_url + shop_url + '/@@order-confirmation'
         mto = 'info@poleworkx.de'
         envelope_from = data['email']
         subject = _(u'Poleworkx Shop: Anfrage von %s') % data['fullname']
         options = data
         cart = self.cart()
         options['cartitems'] = cart
+        options['cart_shipping'] = self.cart_shipping()
+        options['cart_vat'] = self.cart_vat()
+        options['cart_net'] = self.cart_net()
         body = ViewPageTemplateFile("enquiry_email.pt")(self, **options)
-        import pdb; pdb.set_trace( )
+        bodytext = safe_unicode(body).encode('utf-8')
+        body_plaintext = self.create_plaintext_message(bodytext)
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = Header('<%s>' % safe_unicode(subject))
+        msg['From'] = envelope_from
+        msg['To'] = mto
+        msg['epilogue'] = ''
+        msg['preamble'] = 'This is a multi-part message in MIME format.'
+        html_part = MIMEText(body, 'html', _charset='utf-8')
+        plain_part = MIMEText(body_plaintext, 'plain')
+        msg.attach(html_part)
+        msg.attach(plain_part)
+        message = msg.as_string()
         # send email
         mailhost = getToolByName(self.context, 'MailHost')
-        mailhost.send(body, mto=mto, mfrom=envelope_from,
+        mailhost.send(message, mto=mto, mfrom=envelope_from,
                       subject=subject, charset='utf-8')
-        IStatusMessage(self.request).addStatusMessage(
+        IStatusMessage(self.request).add(
             _(u"Your email has been forwarded."),
             type='info')
-        return self.request.response.redirect(shop_url)
+        txn_id = self._generate_txn_id()
+        txn_item = self._update_cart_on_checkout(txn_id)
+        if txn_item:
+            return self.request.response.redirect(success_url)
 
     def _update_cart_on_checkout(self, txn_id):
         updater = getUtility(ICartUpdaterUtility)
+        for item in self.cart():
+            updater.delete(item['uuid'])
         item = updater.mark(txn_id)
         return item
 
@@ -234,6 +267,32 @@ class CheckoutView(grok.View):
 
     def _generate_txn_id(self):
         return base64.b64encode(os.urandom(24))
+
+    def create_plaintext_message(self, text):
+        """ Create a plain-text-message by parsing the html
+            and attaching links as endnotes
+        """
+        plain_text_maxcols = 72
+        textout = cStringIO.StringIO()
+        formtext = formatter.AbstractFormatter(formatter.DumbWriter(
+                        textout, plain_text_maxcols))
+        parser = HTMLParser(formtext)
+        parser.feed(text)
+        parser.close()
+        # append the anchorlist at the bottom of a message
+        # to keep the message readable.
+        counter = 0
+        anchorlist = "\n\n" + ("-" * plain_text_maxcols) + "\n\n"
+        for item in parser.anchorlist:
+            counter += 1
+            if item.startswith('https://'):
+                new_item = item.replace('https://', 'http://')
+            else:
+                new_item = item
+            anchorlist += "[%d] %s\n" % (counter, new_item)
+        text = textout.getvalue() + anchorlist
+        del textout, formtext, parser, anchorlist
+        return text
 
     def default_value(self, error):
         value = ''
