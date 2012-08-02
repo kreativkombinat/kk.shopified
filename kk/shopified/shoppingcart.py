@@ -50,6 +50,7 @@ class ShoppingCartView(grok.View):
             item = self.request.get('item.uuid', None)
             quantity = self.request.get('item.quantity', None)
             form = self.request.form
+            idx = 0
             for item in form:
                 if item not in unwanted:
                     fieldname = item.split('.')
@@ -58,16 +59,14 @@ class ShoppingCartView(grok.View):
                     if quantity is None or quantity is '':
                         self.errors[item] = _(u"Quantity must be given")
                     else:
-                        idx = 0
                         updater = getUtility(ICartUpdaterUtility)
-                        cartitem = updater.add(uuid, quantity)
-                        if cartitem:
-                            idx += 1
-                            IStatusMessage(self.request).add(
-                                _(u"%s cart items successfully updated") % idx,
-                                type="info")
-                        redirect_url = self.context_url + '/@@cart'
-                        return self.request.response.redirect(redirect_url)
+                        updater.add(uuid, quantity)
+                        idx += 1
+            IStatusMessage(self.request).add(
+                _(u"%s cart items successfully updated") % idx,
+                type="info")
+            redirect_url = self.context_url + '/@@cart'
+            return self.request.response.redirect(redirect_url)
 
     def cart(self):
         cart = get_cart()
@@ -83,8 +82,9 @@ class ShoppingCartView(grok.View):
             info['image_tag'] = self.image_tag(product)
             info['url'] = product.absolute_url()
             info['price'] = product.price
+            info['shipping'] = product.shipping_price
             info['price_pretty'] = format_price(product.price)
-            total = quantity * int(product.price)
+            total = int(quantity) * product.price
             info['price_total'] = format_price(total)
             data.append(info)
         return data

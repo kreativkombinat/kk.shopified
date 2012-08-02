@@ -138,7 +138,7 @@ class CheckoutView(grok.View):
         txn_id = self._generate_txn_id()
         shop_url = settings['shop_url']
         base_url = portal_url + shop_url
-        success_url = base_url + '/@@order-confirmation?oid=' + txn_id
+        success_url = base_url + '/@@payment-processed?oid=' + txn_id
         mto = settings['shop_email']
         envelope_from = data['email']
         subject = _(u'Poleworkx Shop: Anfrage von %s') % data['fullname']
@@ -186,7 +186,7 @@ class CheckoutView(grok.View):
         processor = settings.paypal_url
         info = {}
         info['shop_url'] = settings.shop_url
-        info['shop_email'] = settings.shop_email
+        info['shop_email'] = settings.shop_email    
         if processor == 'Sandbox':
             info['key'] = settings.paypal_sandbox
             info['url'] = 'https://www.sandbox.paypal.com/cgi-bin/webscr'
@@ -212,7 +212,7 @@ class CheckoutView(grok.View):
                 info['price'] = product.price
                 info['shipping'] = product.shipping_price
                 info['price_pretty'] = format_price(product.price)
-                total = quantity * int(product.price)
+                total = int(quantity) * product.price
                 info['price_total'] = format_price(total)
                 data.append(info)
         return data
@@ -225,7 +225,9 @@ class CheckoutView(grok.View):
         total = 0.0
         for item in self.cart():
             value = item['price']
-            value = value * int(item['quantity'])
+            shipping = item['shipping']
+            base_value = value + shipping
+            value = base_value * int(item['quantity'])
             total = total + value
         return total
 

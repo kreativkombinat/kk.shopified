@@ -378,7 +378,7 @@
           </tr>
           <tr tal:condition="not:view/total_is_zero">
             <td colspan="3" />
-            <td colspan="1" i18n:translate="">Shipping</td>
+            <td colspan="1" i18n:translate="">Shipping (to Germany)</td>
             <td>
               <span tal:content="view/cart_shipping" />
             </td>
