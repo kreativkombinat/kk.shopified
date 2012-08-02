@@ -33,6 +33,8 @@ class ShoppingCartView(grok.View):
                                 name=u"plone_portal_state")
         self.portal_url = pstate.portal_url()
         self.uuid = IUUID(context, None)
+        unwanted = ('_authenticator', 'form.button.Submit',
+                    'form.button.Clear')
         if 'form.button.Clear' in self.request:
             authenticator = getMultiAdapter((context, self.request),
                                             name=u"authenticator")
@@ -47,19 +49,25 @@ class ShoppingCartView(grok.View):
             self.errors = {}
             item = self.request.get('item.uuid', None)
             quantity = self.request.get('item.quantity', None)
-            if quantity is None:
-                self.errors['item.quantity'] = _(u"Quantity must be given")
-            else:
-                idx = 0
-                updater = self.update_cart()  # implement this one
-                cartitem = updater(item, quantity)
-                if cartitem:
-                    idx += 1
-                    IStatusMessage(self.request).addStatusMessage(
-                        _(u"%s cart items successfully updated") % idx,
-                        type="info")
-                redirect_url = self.context_url() + '/@@cart'
-                return self.request.response.redirect(redirect_url)
+            form = self.request.form
+            for item in form:
+                if item not in unwanted:
+                    fieldname = item.split('.')
+                    uuid = fieldname[0]
+                    quantity = form[item]
+                    if quantity is None or quantity is '':
+                        self.errors[item] = _(u"Quantity must be given")
+                    else:
+                        idx = 0
+                        updater = getUtility(ICartUpdaterUtility)
+                        cartitem = updater.add(uuid, quantity)
+                        if cartitem:
+                            idx += 1
+                            IStatusMessage(self.request).add(
+                                _(u"%s cart items successfully updated") % idx,
+                                type="info")
+                        redirect_url = self.context_url + '/@@cart'
+                        return self.request.response.redirect(redirect_url)
 
     def cart(self):
         cart = get_cart()

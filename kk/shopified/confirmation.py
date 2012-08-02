@@ -15,6 +15,7 @@ class ConfirmationView(grok.View):
         cart = get_cart()
         order_id = self.request.get('oid', '')
         self.txn_id = cart['txn_id']
+        import pdb; pdb.set_trace( )
         if self.is_equal(order_id, self.txn_id):
             wipe_cart()
 

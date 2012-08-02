@@ -135,8 +135,10 @@ class CheckoutView(grok.View):
                                   name=u"plone_portal_state")
         portal_url = pstate.portal_url()
         settings = self._payment_settings()
+        txn_id = self._generate_txn_id()
         shop_url = settings['shop_url']
-        success_url = portal_url + shop_url + '/@@order-confirmation'
+        base_url = portal_url + shop_url
+        success_url = base_url + '/@@order-confirmation?oid=' + txn_id
         mto = 'info@poleworkx.de'
         envelope_from = data['email']
         subject = _(u'Poleworkx Shop: Anfrage von %s') % data['fullname']
@@ -167,7 +169,6 @@ class CheckoutView(grok.View):
         IStatusMessage(self.request).add(
             _(u"Your email has been forwarded."),
             type='info')
-        txn_id = self._generate_txn_id()
         txn_item = self._update_cart_on_checkout(txn_id)
         if txn_item:
             return self.request.response.redirect(success_url)
