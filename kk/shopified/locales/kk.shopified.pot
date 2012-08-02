@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-08-02 12:58+0000\n"
+"POT-Creation-Date: 2012-08-02 13:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,8 +95,12 @@ msgstr ""
 msgid "EU Country"
 msgstr ""
 
-#: ./../interfaces.py:69
+#: ./../interfaces.py:75
 msgid "Email Order"
+msgstr ""
+
+#: ./../interfaces.py:64
+msgid "Enter shop email address that will recieve order mail from customers"
 msgstr ""
 
 #: ./../interfaces.py:53
@@ -161,11 +165,11 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: ./../interfaces.py:70
+#: ./../interfaces.py:76
 msgid "Please enter optional email order url (relative to the site root. Leave empty for the default form"
 msgstr ""
 
-#: ./../interfaces.py:64
+#: ./../interfaces.py:70
 msgid "Please enter relative URL to the shop content"
 msgstr ""
 
@@ -210,6 +214,10 @@ msgid "Shipping Address"
 msgstr ""
 
 #: ./../interfaces.py:63
+msgid "Shop E-mail"
+msgstr ""
+
+#: ./../interfaces.py:69
 msgid "Shop URL"
 msgstr ""
 
