@@ -186,6 +186,7 @@ class CheckoutView(grok.View):
         processor = settings.paypal_url
         info = {}
         info['shop_url'] = settings.shop_url
+        info['shop_email'] = settings.shop_email
         if processor == 'Sandbox':
             info['key'] = settings.paypal_sandbox
             info['url'] = 'https://www.sandbox.paypal.com/cgi-bin/webscr'
@@ -302,10 +303,8 @@ class CheckoutView(grok.View):
         return value
 
     def required_fields(self):
-        fields = ('fullname', 'email', 'phone',
-                  'shipping.city', 'shipping.zipcode',
-                  'shipping.address_1', 'shipping.address_2',
-                  'shipping.country')
+        fields = ('fullname', 'email', 'shipping.city', 'shipping.zipcode',
+                  'shipping.address_1', 'shipping.country')
         return fields
 
     def eu_countries(self):

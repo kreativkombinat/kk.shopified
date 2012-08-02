@@ -99,7 +99,7 @@ class ShoppingCartView(grok.View):
             value = item['price']
             value = value * int(item['quantity'])
             total = total + value
-        return total
+        return format_price(total)
 
     def total_is_zero(self):
         return self.cart_total() <= 0

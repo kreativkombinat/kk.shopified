@@ -94,7 +94,7 @@
             type="submit"
             name="form.button.Clear"
             i18n:translate=""
-            value="Warenkork leeren" />
+            value="Warenkorb leeren" />
 
         <div class="xwell" tal:condition="not:view/total_is_zero">
           <div class="btn-toolbar">
