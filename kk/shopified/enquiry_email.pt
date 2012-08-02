@@ -6,13 +6,23 @@
      tal:define="portal context/@@plone_portal_state/portal;
                  charset portal/email_charset|string:utf-8;
                  dummy python:request.RESPONSE.setHeader('Content-Type', 'text/html;;charset=%s' % charset);">
-
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en-US" lang="en-US">
+<head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Bestellanfrage</title>
+</head>
+<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+<center>
+        <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable">
+            <tr>
+                <td align="center" valign="top">
 <h2>Bestellanfrage Poleworkx Online Shop</h2>
 
 <p>Ein Besucher des <a href="http://poleworkx.de/shop">Online Shops</a>
 hat folgende Bestellanfrage abgeschickt:</p>
 
-<table>
+<table border="0" cellpadding="10" cellspacing="0" width="100%">
     <tr>
         <th colspan="2">
             Personal Details
@@ -36,7 +46,7 @@ hat folgende Bestellanfrage abgeschickt:</p>
     </tr>
 </table>
 
-<table>
+<table border="0" cellpadding="10" cellspacing="0" width="100%">
     <tr>
         <th colspan="2">
             Versandadresse
@@ -62,7 +72,8 @@ hat folgende Bestellanfrage abgeschickt:</p>
     </tr>
 </table>
 
-<table tal:condition="options/billing.city">
+<table border="0" cellpadding="10" cellspacing="0" width="100%"
+    tal:condition="options/billing.city">
     <tr>
         <th colspan="2">
             Lieferadresse
@@ -139,7 +150,12 @@ hat folgende Bestellanfrage abgeschickt:</p>
   </tbody>
 </table>
 
-<p>Mit freundlichen Grüssen<br />>
+<p>Mit freundlichen Grüssen<br />
 Ihre Online Redaktion</p>
-
+</td>
+</tr>
+</table>
+</center>
+</body>
+</html>
 </div>
