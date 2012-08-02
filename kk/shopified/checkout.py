@@ -9,6 +9,7 @@ from zope.component import getUtility
 from zope.component import getMultiAdapter
 
 from plone.app.uuid.utils import uuidToObject
+from Products.CMFCore.utils import getToolByName
 
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.interfaces import IContentish
@@ -30,9 +31,11 @@ class CheckoutView(grok.View):
     def update(self):
         context = aq_inner(self.context)
         self.errors = {}
-        unwanted = ('_authenticator', 'form.button.Submit')
+        unwanted = ('_authenticator', 'form.button.Submit',
+                    'form.button.Enquiry')
         required = self.required_fields()
-        if 'form.button.Submit' in self.request:
+        if ('form.button.Submit' in self.request
+            or 'form.button.Enquiry' in self.request):
             form = self.request.form
             authenticator = getMultiAdapter((context, self.request),
                                             name=u"authenticator")
@@ -55,12 +58,23 @@ class CheckoutView(grok.View):
                         error['active'] = False
                         error['msg'] = form[value]
                         formerrors[value] = error
+                else:
+                    if value == 'form.button.Enquiry':
+                        formdata['payment_method'] = 'enquiry'
+                    else:
+                        formdata['payment_method'] = 'paypal'
             if errorIdx > 0:
                 self.errors = formerrors
             else:
                 self._process_payment(formdata)
 
     def _process_payment(self, data):
+        if data['payment_method'] == 'paypal':
+            self._process_paypal(data)
+        else:
+            self._send_enquiry(data)
+
+    def _process_paypal(self, data):
         pstate = getMultiAdapter((self.context, self.request),
                                   name=u"plone_portal_state")
         portal_url = pstate.portal_url()
@@ -109,6 +123,29 @@ class CheckoutView(grok.View):
         if txn_item:
             self.context.REQUEST.RESPONSE.redirect(url)
             return 'SUCCESS'
+
+    def _send_enquiry(self, data):
+        context_url = self.context.absolute_url()
+        settings = self._payment_settings()
+        shop_url = settings['url']
+        mto = 'info@poleworkx.de'
+        envelope_from = data['email']
+        subject = _(u'Poleworkx Shop: Anfrage von %s') % data['fullname']
+        options = dict(email=data['email'],
+                       name=data['fullname'],
+                       message=data['message'],
+                       url=context_url,
+                       title=self.context.Title(),
+                        )
+        body = ViewPageTemplateFile("venuecontact_email.pt")(self, **options)
+        # send email
+        mailhost = getToolByName(self.context, 'MailHost')
+        mailhost.send(body, mto=mto, mfrom=envelope_from,
+                      subject=subject, charset='utf-8')
+        IStatusMessage(self.request).addStatusMessage(
+            _(u"Your email has been forwarded."),
+            type='info')
+        return self.request.response.redirect(shop_url)
 
     def _update_cart_on_checkout(self, txn_id):
         updater = getUtility(ICartUpdaterUtility)

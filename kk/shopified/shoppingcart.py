@@ -181,7 +181,7 @@ class CartClear(grok.View):
         IStatusMessage(self.request).addStatusMessage(
             _(u"Remove item from cart executed. This is not yet implemented"),
             type="info")
-        redirect_url = self.context_url() + '/@@cart'
+        redirect_url = self.context_url + '/@@cart'
         return self.request.response.redirect(redirect_url)
 
     def render(self):
