@@ -151,10 +151,9 @@ class CheckoutView(grok.View):
         shipping = self._calculate_shipping(country)
         net = self._calculate_cart_net(shipping)
         vat = self._calculate_cart_vat(net)
-        options['cart_shipping'] = shipping
-        options['cart_vat'] = vat
-        options['cart_net'] = net
-        import pdb; pdb.set_trace( )
+        options['cart_shipping'] = format_price(shipping)
+        options['cart_vat'] = format_price(vat)
+        options['cart_net'] = format_price(net)
         body = ViewPageTemplateFile("enquiry_email.pt")(self, **options)
         bodytext = safe_unicode(body).encode('utf-8')
         body_plaintext = self.create_plaintext_message(bodytext)
@@ -272,11 +271,11 @@ class CheckoutView(grok.View):
     def _calculate_cart_net(self, shipping):
         total = self.cart_total()
         net = total + shipping
-        return format_price(net)
+        return net
 
     def _calculate_cart_vat(self, net):
         vat = net * 0.19
-        return format_price(vat)
+        return vat
 
     def _url_quote(self, value):
         if value:
