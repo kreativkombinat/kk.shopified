@@ -139,7 +139,7 @@ class CheckoutView(grok.View):
         shop_url = settings['shop_url']
         base_url = portal_url + shop_url
         success_url = base_url + '/@@order-confirmation?oid=' + txn_id
-        mto = 'info@poleworkx.de'
+        mto = settings['shop_email']
         envelope_from = data['email']
         subject = _(u'Poleworkx Shop: Anfrage von %s') % data['fullname']
         options = data
