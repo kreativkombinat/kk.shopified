@@ -61,7 +61,7 @@ class IShopifiedSettings(Interface):
     )
     shop_email = schema.TextLine(
         title=_(u"Shop E-mail"),
-        decsription=_(u"Enter shop email address that will recieve order "
+        description=_(u"Enter shop email address that will recieve order "
                       u"mail from customers"),
         required=True,
     )
