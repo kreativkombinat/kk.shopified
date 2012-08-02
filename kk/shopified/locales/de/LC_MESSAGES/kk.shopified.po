@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2012-08-02 15:36+0100\n"
+"PO-Revision-Date: 2012-08-02 15:58+0100\n"
 "Last-Translator: Christoph Boehner <cb@vorwaerts-werbung.de>\n"
 "Language-Team: KK Language Team <info@kreativkombinat.de>\n"
 "MIME-Version: 1.0\n"
@@ -90,7 +90,7 @@ msgstr "EU-Land"
 
 #: ./../interfaces.py:75
 msgid "Email Order"
-msgstr "Anfrage per E-Mail"
+msgstr "Externes Anfrageformular (URL)"
 
 #: ./../interfaces.py:64
 msgid "Enter shop email address that will recieve order mail from customers"
@@ -124,7 +124,7 @@ msgstr "Artikel"
 
 #: ./../shoppingcart.py:157
 msgid "Item could not be removed from the shopping cart. Please try again. If the error should persist, please contact the shop owner"
-msgstr "Der Artikel konnte nicht aus dem Wrankorb entfernt werden. Bitte versuchen Sie es noch einmal. Sollte der Fehler erneut auftreten wenden Sie sich bitte an den Shopbetreiber"
+msgstr "Der Artikel konnte nicht aus dem Warenkorb entfernt werden. Bitte versuchen Sie es noch einmal. Sollte der Fehler erneut auftreten wenden Sie sich bitte an den Shopbetreiber"
 
 #: ./../shoppingcart.py:164
 msgid "Item has been removed from the shopping cart"
@@ -160,7 +160,7 @@ msgstr "Telefon"
 
 #: ./../interfaces.py:76
 msgid "Please enter optional email order url (relative to the site root. Leave empty for the default form"
-msgstr "Bitte geben Sie hier eine alternative URL zur Anfrage via E-Mail ein. Anderenfalls wird der Inhalt der Checkout Ansicht per E-Mail an die Standard E-Mail-Adresse der Seite verschickt."
+msgstr "Bitte geben Sie hier eine optionale URL zu einem alternativen Formular zur Anfrage via E-Mail ein, falls Sie den Standardversand über den Shop überschreiben wollen (Hinweis: das Auslesen des Warenkorbs muss dann durch die alternative Implementierung gelöst werden)"
 
 #: ./../interfaces.py:70
 msgid "Please enter relative URL to the shop content"
@@ -192,7 +192,7 @@ msgstr "Ein Angabe der Artikelanzahl ist verpflichtend"
 
 #: ./../shoppingcart.py:190
 msgid "Remove item from cart executed. This is not yet implemented"
-msgstr "Entfernen einen Artikels aus dem Warenkorb wurde ausgeführt. Diese Aktion ist noch nicht implementiert."
+msgstr "Artikel wurden erfolgreich aus dem Warenkorb entfernt."
 
 #: ./../interfaces.py:59
 msgid "Sandbox"
