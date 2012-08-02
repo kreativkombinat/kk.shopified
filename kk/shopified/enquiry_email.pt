@@ -1,0 +1,26 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+     i18n:domain="rgd.venues" 
+     tal:omit-tag=""
+     tal:define="portal context/@@plone_portal_state/portal;
+                 charset portal/email_charset|string:utf-8;
+                 dummy python:request.RESPONSE.setHeader('Content-Type', 'text/html;;charset=%s' % charset);">
+
+<h2>Bestellanfrage Poleworkx Online Shop</h2>
+
+<p>Ein Besucher des <a href="http://poleworkx.de/shop">Online Shops</a>
+hat folgende Bestellanfrage abgeschickt:</p>
+
+<p>
+<span tal:content="options/message | nothing" tal:omit-tag="" />
+
+
+Name: <span tal:content="options/fullname | nothing" tal:omit-tag="" />
+E-Mail-Adresse: <span tal:content="options/email | nothing" tal:omit-tag="" />
+</p>
+
+<p>Mit freundlichen Grüssen<br />>
+Ihre Online Redaktion</p>
+
+</div>
