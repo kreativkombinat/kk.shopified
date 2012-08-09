@@ -1,5 +1,6 @@
-import os
 import base64
+import hashlib
+import random
 import urllib2
 import cStringIO
 import formatter
@@ -156,22 +157,9 @@ class CheckoutView(grok.View):
         options['cart_vat'] = format_price(vat)
         options['cart_net'] = format_price(net)
         body = ViewPageTemplateFile("enquiry_email.pt")(self, **options)
-        bodytext = safe_unicode(body).encode('utf-8')
-        body_plaintext = self.create_plaintext_message(bodytext)
-        msg = MIMEMultipart('alternative')
-        msg['Subject'] = Header('<%s>' % safe_unicode(subject))
-        msg['From'] = envelope_from
-        msg['To'] = mto
-        msg['epilogue'] = ''
-        msg['preamble'] = 'This is a multi-part message in MIME format.'
-        html_part = MIMEText(body, 'html', _charset='utf-8')
-        plain_part = MIMEText(body_plaintext, 'plain', _charset='utf-8')
-        msg.attach(html_part)
-        msg.attach(plain_part)
-        message = msg.as_string()
         # send email
         mailhost = getToolByName(self.context, 'MailHost')
-        mailhost.send(message, mto=mto, mfrom=envelope_from,
+        mailhost.send(body, mto=mto, mfrom=envelope_from,
                       subject=subject, charset='utf-8')
         IStatusMessage(self.request).add(
             _(u"Your email has been forwarded."),
@@ -289,7 +277,11 @@ class CheckoutView(grok.View):
             return ''
 
     def _generate_txn_id(self):
-        return base64.b64encode(os.urandom(24))
+        key = base64.b64encode(
+                hashlib.sha256(str(random.getrandbits(256))
+                ).digest(), random.choice([
+                'rA', 'aZ', 'gQ', 'hH', 'hG', 'aR', 'DD'])).rstrip('==')
+        return key
 
     def create_plaintext_message(self, text):
         """ Create a plain-text-message by parsing the html

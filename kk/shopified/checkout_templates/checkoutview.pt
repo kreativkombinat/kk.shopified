@@ -184,7 +184,6 @@
                   <div class="controls">
                     <input type="text" class="input-xlarge" id="shipping.address2"
                       name="shipping.address2"
-                      required="required"
                       tal:attributes="value python:error and view.default_value(error) or ''" />
                       <div class="help-block error"
                         tal:condition="err_msg">
