@@ -143,7 +143,8 @@ class CheckoutView(grok.View):
         success_url = base_url + '/@@payment-processed?oid=' + txn_id
         mto = settings['shop_email']
         envelope_from = data['email']
-        subject = _(u'Poleworkx Shop: Anfrage von %s') % data['fullname']
+        fullname = safe_unicode(data['fullname'])
+        subject = _(u'Poleworkx Shop: Anfrage von %s') % fullname
         options = data
         cart = self.cart()
         options['cartitems'] = cart
