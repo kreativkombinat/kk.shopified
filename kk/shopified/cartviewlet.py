@@ -20,7 +20,10 @@ class CartViewlet(grok.Viewlet):
 
     def cart(self):
         cart = get_cart()
-        return cart
+        if 'txn_id' in cart:
+            return ''
+        else:
+            return cart
 
     def count_items(self):
         return len(self.cart())

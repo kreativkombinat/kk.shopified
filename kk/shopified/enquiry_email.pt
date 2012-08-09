@@ -14,147 +14,147 @@
 </head>
 <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
 <center>
-        <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable">
+  <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable">
+    <tr>
+      <td align="center" valign="top">
+        <h2>Bestellanfrage Poleworkx Online Shop</h2>
+
+        <p>Ein Besucher des <a href="http://poleworkx.de/shop">Online Shops</a>
+          hat folgende Bestellanfrage abgeschickt:</p>
+
+        <table border="0" cellpadding="10" cellspacing="0" width="100%">
             <tr>
-                <td align="center" valign="top">
-<h2>Bestellanfrage Poleworkx Online Shop</h2>
+                <th colspan="2">
+                    Personal Details
+                </th>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td tal:content="options/fullname | nothing" />
+            </tr>
+            <tr>
+                <td>E-Mail-Adresse</td>
+                <td tal:content="options/email | nothing" />
+            </tr>
+            <tr>
+                <td>Telefon</td>
+                <td tal:content="options/phone | string:Keine Angabe" />
+            </tr>
+            <tr>
+                <td>Kommentare</td>
+                <td tal:content="options/comment | string:Keine Angabe" />
+            </tr>
+        </table>
 
-<p>Ein Besucher des <a href="http://poleworkx.de/shop">Online Shops</a>
-hat folgende Bestellanfrage abgeschickt:</p>
+        <table border="0" cellpadding="10" cellspacing="0" width="100%">
+            <tr>
+                <th colspan="2">
+                    Versandadresse
+                </th>
+            </tr>
+            <tr>
+                <td>Ort</td>
+                <td tal:content="options/shipping.city | nothing" />
+            </tr>
+            <tr>
+                <td>Postleitzahl</td>
+                <td tal:content="options/shipping.zipcode | nothing" />
+            </tr>
+            <tr>
+                <td>Strasse und Hausnummer</td>
+                <td><span tal:replace="options/shipping.address1 | string:Keine Angabe" /><br />
+                    <span tal:replace="options/shipping.address2 | string:Keine Angabe" />
+                </td>
+            </tr>
+            <tr>
+                <td>Land</td>
+                <td tal:content="options/shipping.country | string:Keine Angabe" />
+            </tr>
+        </table>
 
-<table border="0" cellpadding="10" cellspacing="0" width="100%">
-    <tr>
-        <th colspan="2">
-            Personal Details
-        </th>
-    </tr>
-    <tr>
-        <td>Name</td>
-        <td tal:content="options/fullname | nothing" />
-    </tr>
-    <tr>
-        <td>E-Mail-Adresse</td>
-        <td tal:content="options/email | nothing" />
-    </tr>
-    <tr>
-        <td>Telefon</td>
-        <td tal:content="options/phone | string:Keine Angabe" />
-    </tr>
-    <tr>
-        <td>Kommentare</td>
-        <td tal:content="options/comment | string:Keine Angabe" />
-    </tr>
-</table>
+        <table border="0" cellpadding="10" cellspacing="0" width="100%"
+            tal:condition="options/billing.city">
+            <tr>
+                <th colspan="2">
+                    Lieferadresse
+                </th>
+            </tr>
+            <tr>
+                <td>Ort</td>
+                <td tal:content="options/billing.city | nothing" />
+            </tr>
+            <tr>
+                <td>Postleitzahl</td>
+                <td tal:content="options/billing.zipcode | nothing" />
+            </tr>
+            <tr>
+                <td>Strasse und Hausnummer</td>
+                <td><span tal:replace="options/billing.address1 | string:Keine Angabe" /><br />
+                    <span tal:replace="options/billing.address2 | string:Keine Angabe" />
+                </td>
+            </tr>
+            <tr>
+                <td>Land</td>
+                <td tal:content="options/billing.country | string:Keine Angabe" />
+            </tr>
+        </table>
 
-<table border="0" cellpadding="10" cellspacing="0" width="100%">
-    <tr>
-        <th colspan="2">
-            Versandadresse
-        </th>
-    </tr>
-    <tr>
-        <td>Ort</td>
-        <td tal:content="options/shipping.city | nothing" />
-    </tr>
-    <tr>
-        <td>Postleitzahl</td>
-        <td tal:content="options/shipping.zipcode | nothing" />
-    </tr>
-    <tr>
-        <td>Strasse und Hausnummer</td>
-        <td><span tal:replace="options/shipping.address1 | string:Keine Angabe" /><br />
-            <span tal:replace="options/shipping.address2 | string:Keine Angabe" />
-        </td>
-    </tr>
-    <tr>
-        <td>Land</td>
-        <td tal:content="options/shipping.country | string:Keine Angabe" />
-    </tr>
-</table>
+        <h2>Bestellung</h2>
+        <table class="listing" style="width: 100%">
+          <thead>
+            <tr>
+              <th i18n:translate="">Amount</th>
+              <th i18n:translate="">Item</th>
+              <th i18n:translate="">Unit Price</th>
+              <th i18n:translate="">Total</th>
+            </tr>
+          </thead>
+          <tbody tal:define="cartitems options/cartitems">
+            <tr tal:repeat="item cartitems">
+              <td tal:content="item/quantity" />
+              <td>
+                <h5>
+                  <a href="" tal:attributes="href item/url"
+                     tal:content="item/title" />
+                </h5>
+                <p class="discreet" tal:content="item/description" />
+              </td>
+              <td tal:content="item/price_pretty" />
+              <td tal:content="item/price_total">XX Total</td>
+            </tr>
+            <tr>
+              <td colspan="3" />
+              <td colspan="2"><hr /></td>
+            </tr>
+            <tr>
+              <td colspan="3" />
+              <td colspan="1" i18n:translate="">Shipping</td>
+              <td>
+                <span tal:content="options/cart_shipping | string:Keine Information" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3" />
+              <td colspan="1" i18n:translate="">VAT (19%)</td>
+              <td>
+                <span tal:content="options/cart_vat | string:Keine Information" />
+              </td>
+            </tr>
+            <tr>
+              <th colspan="3" />
+              <th colspan="1" i18n:translate="">TOTAL</th>
+              <th>
+                <span tal:content="options/cart_net | string:Keine Information" />
+              </th>
+            </tr>
+          </tbody>
+        </table>
 
-<table border="0" cellpadding="10" cellspacing="0" width="100%"
-    tal:condition="options/billing.city">
-    <tr>
-        <th colspan="2">
-            Lieferadresse
-        </th>
-    </tr>
-    <tr>
-        <td>Ort</td>
-        <td tal:content="options/billing.city | nothing" />
-    </tr>
-    <tr>
-        <td>Postleitzahl</td>
-        <td tal:content="options/billing.zipcode | nothing" />
-    </tr>
-    <tr>
-        <td>Strasse und Hausnummer</td>
-        <td><span tal:replace="options/billing.address1 | string:Keine Angabe" /><br />
-            <span tal:replace="options/billing.address2 | string:Keine Angabe" />
-        </td>
-    </tr>
-    <tr>
-        <td>Land</td>
-        <td tal:content="options/billing.country | string:Keine Angabe" />
-    </tr>
-</table>
-
-<h2>Bestellung</h2>
-<table class="listing" style="width: 100%">
-  <thead>
-    <tr>
-      <th i18n:translate="">Amount</th>
-      <th i18n:translate="">Item</th>
-      <th i18n:translate="">Unit Price</th>
-      <th i18n:translate="">Total</th>
-    </tr>
-  </thead>
-  <tbody tal:define="cartitems options/cartitems">
-    <tr tal:repeat="item cartitems">
-      <td tal:content="item/quantity" />
-      <td>
-        <h5>
-          <a href="" tal:attributes="href item/url"
-             tal:content="item/title" />
-        </h5>
-        <p class="discreet" tal:content="item/description" />
+        <p>Mit freundlichen Grüssen<br />
+          Ihre Online Redaktion</p>
       </td>
-      <td tal:content="item/price_pretty" />
-      <td tal:content="item/price_total">XX Total</td>
     </tr>
-    <tr>
-      <td colspan="3" />
-      <td colspan="2"><hr /></td>
-    </tr>
-    <tr>
-      <td colspan="3" />
-      <td colspan="1" i18n:translate="">Shipping</td>
-      <td>
-        <span tal:content="options/cart_shipping | string:Keine Information" />
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3" />
-      <td colspan="1" i18n:translate="">VAT (19%)</td>
-      <td>
-        <span tal:content="options/cart_vat | string:Keine Information" />
-      </td>
-    </tr>
-    <tr>
-      <th colspan="3" />
-      <th colspan="1" i18n:translate="">TOTAL</th>
-      <th>
-        <span tal:content="options/cart_net | string:Keine Information" />
-      </th>
-    </tr>
-  </tbody>
-</table>
-
-<p>Mit freundlichen Grüssen<br />
-Ihre Online Redaktion</p>
-</td>
-</tr>
-</table>
+  </table>
 </center>
 </body>
 </html>

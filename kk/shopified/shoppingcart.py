@@ -1,3 +1,4 @@
+import json
 from five import grok
 from Acquisition import aq_inner
 from AccessControl import Unauthorized
@@ -91,6 +92,8 @@ class ShoppingCartView(grok.View):
 
     def has_cart(self):
         cart = get_cart()
+        if 'txn_id' in cart:
+            return False
         return len(cart) > 0
 
     def cart_total(self):
@@ -194,3 +197,33 @@ class CartClear(grok.View):
 
     def render(self):
         return ''
+
+
+class CartJSONView(grok.View):
+    grok.context(IContentish)
+    grok.require('zope2.View')
+    grok.name('cart-json-view')
+
+    def render(self):
+        return json.dumps(self.cart())
+
+    def cart(self):
+        cart = get_cart()
+        data = []
+        for item in cart:
+            info = {}
+            product = uuidToObject(item)
+            quantity = cart[item]
+            info['uuid'] = item
+            info['quantity'] = quantity
+            info['title'] = product.Title()
+            info['description'] = product.Description()
+            info['image_tag'] = self.image_tag(product)
+            info['url'] = product.absolute_url()
+            info['price'] = product.price
+            info['shipping'] = product.shipping_price
+            info['price_pretty'] = format_price(product.price)
+            total = int(quantity) * product.price
+            info['price_total'] = format_price(total)
+            data.append(info)
+        return data
