@@ -5,9 +5,6 @@ import urllib2
 import cStringIO
 import formatter
 from htmllib import HTMLParser
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.Header import Header
 
 from five import grok
 from Acquisition import aq_inner
