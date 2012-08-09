@@ -216,14 +216,15 @@ class CartJSONView(grok.View):
             quantity = cart[item]
             info['uuid'] = item
             info['quantity'] = quantity
-            info['title'] = product.Title()
-            info['description'] = product.Description()
-            info['image_tag'] = self.image_tag(product)
-            info['url'] = product.absolute_url()
-            info['price'] = product.price
-            info['shipping'] = product.shipping_price
-            info['price_pretty'] = format_price(product.price)
-            total = int(quantity) * product.price
-            info['price_total'] = format_price(total)
+            if product:
+                info['title'] = product.Title()
+                info['description'] = product.Description()
+                info['image_tag'] = self.image_tag(product)
+                info['url'] = product.absolute_url()
+                info['price'] = product.price
+                info['shipping'] = product.shipping_price
+                info['price_pretty'] = format_price(product.price)
+                total = int(quantity) * product.price
+                info['price_total'] = format_price(total)
             data.append(info)
         return data
