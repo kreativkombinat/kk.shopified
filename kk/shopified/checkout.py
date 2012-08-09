@@ -165,7 +165,7 @@ class CheckoutView(grok.View):
         msg['epilogue'] = ''
         msg['preamble'] = 'This is a multi-part message in MIME format.'
         html_part = MIMEText(body, 'html', _charset='utf-8')
-        plain_part = MIMEText(body_plaintext, 'plain')
+        plain_part = MIMEText(body_plaintext, 'plain', _charset='utf-8')
         msg.attach(html_part)
         msg.attach(plain_part)
         message = msg.as_string()
