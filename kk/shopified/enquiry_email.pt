@@ -6,17 +6,32 @@
      tal:define="portal context/@@plone_portal_state/portal;
                  charset portal/email_charset|string:utf-8;
                  dummy python:request.RESPONSE.setHeader('Content-Type', 'text/html;;charset=%s' % charset);">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xml:lang="en-US" lang="en-US">
 <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
       <title>Bestellanfrage</title>
+      <style type="text/css">
+      /* Client-specific Styles */
+      #outlook a{padding:0;} /* Force Outlook to provide a "view in browser" button. */
+      body{width:100% !important;} .ReadMsgBody{width:100%;} .ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */
+      body{-webkit-text-size-adjust:none;} /* Prevent Webkit platforms from changing default text sizes. */
+
+      /* Reset Styles */
+      body{margin:0; padding:0;}
+      img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;}
+      table td{border-collapse:collapse;}
+      #backgroundTable{height:100% !important; margin:0; padding:0; width:100% !important;}
+      #mail-content {text-align: left}
+      </style>
 </head>
 <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
 <center>
   <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable">
     <tr>
       <td align="center" valign="top">
+        <div id="mail-content">
         <h2>Bestellanfrage Poleworkx Online Shop</h2>
 
         <p>Ein Besucher des <a href="http://poleworkx.de/shop">Online Shops</a>
@@ -152,6 +167,7 @@
 
         <p>Mit freundlichen Grüssen<br />
           Ihre Online Redaktion</p>
+      </div>
       </td>
     </tr>
   </table>
