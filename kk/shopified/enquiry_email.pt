@@ -37,7 +37,7 @@ Land: <span tal:content="options/shipping.country | string:Keine Angabe" tal:omi
 Lieferadresse
 -------------
 
-Ort: <span tal:content="options/billing.city | nothing" tl:omit-tag="" />
+Ort: <span tal:content="options/billing.city | nothing" tal:omit-tag="" />
 Postleitzahl: <span tal:content="options/billing.zipcode | nothing" tal:omit-tag="" />
 Strasse und Hausnummer:
 <span tal:replace="options/billing.address1 | string:Keine Angabe" tal:omit-tag="" />
@@ -57,10 +57,10 @@ Preis: <span tal:replace="item/price_total" tal:omit-tag="" />
 </tal:block>
 </tal:block>
 
-Lieferkosten: <span tal:content="options/cart_shipping | string:Keine Information" tal:omit-tag="" />
-inkl. Mehrwertssteuer: <span tal:content="options/cart_vat | string:Keine Information" tal_omit-tag="" />
+Lieferkosten: <span tal:replace="options/cart_shipping | string:Keine Information" tal:omit-tag="" />
+inkl. Mehrwertssteuer: <span tal:replace="options/cart_vat | string:Keine Information" tal:omit-tag="" />
 
-Gesamtpreis: <span tal:content="options/cart_net | string:Keine Information" tal:omit-tag="" />
+Gesamtpreis: <span tal:replace="options/cart_net | string:Keine Information" tal:omit-tag="" />
 
 
 Mit freundlichen Grüssen
