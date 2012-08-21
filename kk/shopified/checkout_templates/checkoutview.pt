@@ -402,12 +402,12 @@
           <input type="submit"
             name="form.button.Submit"
             class="context btn"
-            value="Jetzt kaufen"
+            value="Jetzt kaufen per Paypal"
             i18n:translate="" />
           <input type="submit"
             name="form.button.Enquiry"
             class="context btn"
-            value="Anfrage per E-Mail"
+            value="Jetzt kaufen per E-Mail"
             i18n:translate="" />
         </div>
       </form>
