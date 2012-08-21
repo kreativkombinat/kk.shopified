@@ -1,0 +1,74 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+     i18n:domain="rgd.venues" 
+     tal:omit-tag=""
+     tal:define="portal context/@@plone_portal_state/portal;
+                 charset portal/email_charset|string:utf-8;
+                 dummy python:request.RESPONSE.setHeader('Content-Type', 'text/plain;;charset=%s' % charset);">
+
+Bestellanfrage Poleworkx Online Shop
+====================================
+
+Ein Besucher des Online Shops
+hat folgende Bestellanfrage abgeschickt:
+
+Persönliche Daten
+-----------------
+
+Name: <span tal:replace="options/fullname | nothing" tal:omit-tag="" />
+E-Mail-Adresse: <span tal:replace="options/email | nothing" tal:omit-tag="" />
+Telefon: <span tal:replace="options/phone | string:Keine Angabe" tal:omit-tag="" />
+
+Kommentare:
+<span tal:replace="options/comment | string:Keine Angabe" tal:omit-tag="" />
+
+
+Versandadresse
+--------------
+
+Ort: <span tal:content="options/shipping.city | nothing" tal:omit-tag="" />
+Postleitzahl: <span tal:content="options/shipping.zipcode | nothing" tal:omit-tag="" />
+Strasse und Hausnummer:
+<span tal:replace="options/shipping.address1 | string:Keine Angabe" tal:omit-tag="" />
+<span tal:replace="options/shipping.address2 | string:Keine Angabe" tal:omit-tag="" />
+Land: <span tal:content="options/shipping.country | string:Keine Angabe" tal:omit-tag="" />
+
+Lieferadresse
+-------------
+
+Ort: <span tal:content="options/billing.city | nothing" tal:omit-tag="" />
+Postleitzahl: <span tal:content="options/billing.zipcode | nothing" tal:omit-tag="" />
+Strasse und Hausnummer:
+<span tal:replace="options/billing.address1 | string:Keine Angabe" tal:omit-tag="" />
+<span tal:replace="options/billing.address2 | string:Keine Angabe" tal:omit-tag="" />
+
+
+Bestellung:
+-----------
+
+<tal:block tal:define="cartitems options/cartitems">
+<tal:block tal:repeat="item cartitems">
+Anzahl: <span tal:replace="item/quantity" />
+Artikel: <span tal:replace="item/title" />
+URL: <span tal:replace="item/url" tal:omit-tag="" />
+Beschreibung: <span tal:replace="item/description" tal:omit-tag="" />
+Preis: <span tal:replace="item/price_total" tal:omit-tag="" />
+</tal:block>
+</tal:block>
+
+Lieferkosten: <span tal:replace="options/cart_shipping | string:Keine Information" tal:omit-tag="" />
+inkl. Mehrwertssteuer: <span tal:replace="options/cart_vat | string:Keine Information" tal:omit-tag="" />
+
+Gesamtpreis: <span tal:replace="options/cart_net | string:Keine Information" tal:omit-tag="" />
+
+
+Mit freundlichen Grüssen
+Ihre Online Redaktion
+
+---
+Bestellanfrage
+http://poleworkx.de
+
+
+</div>

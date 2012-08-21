@@ -17,6 +17,7 @@
 
       <form tal:define="errors view/errors"
         tal:attributes="action request/URL"
+        id="shopified-checkout-form"
         method="post">
         <div>
           <h2 i18n:translate="">Personal Details</h2>
@@ -53,6 +54,7 @@
             <div class="controls">
               <input type="text" class="input-xlarge" id="phone"
                 name="phone"
+                required="required"
                 tal:attributes="value python:error and view.default_value(error) or ''" />
                 <div class="help-block error"
                   tal:condition="err_msg">
@@ -71,6 +73,7 @@
             <div class="controls">
               <input type="text" class="input-xlarge" id="email"
                 name="email"
+                required="required"
                 tal:attributes="value python:error and view.default_value(error) or ''" />
                 <div class="help-block error"
                   tal:condition="err_msg">
@@ -111,7 +114,7 @@
               <h4 i18n:translate="">Shipping Address</h4>
 
               <div class="control-group field"
-                tal:define="error errors/fullname | nothing;
+                tal:define="error errors/shipping.city | nothing;
                             err_msg python:error and error['active'] == True"
                 tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
                 <label class="control-label"
@@ -120,6 +123,7 @@
                   <div class="controls">
                     <input type="text" class="input-xlarge" id="shipping.city"
                       name="shipping.city"
+                      required="required"
                       tal:attributes="value python:error and view.default_value(error) or ''" />
                       <div class="help-block error"
                         tal:condition="err_msg">
@@ -130,7 +134,7 @@
               </div>
 
               <div class="control-group field"
-                tal:define="error errors/fullname | nothing;
+                tal:define="error errors/shipping.zipcode | nothing;
                             err_msg python:error and error['active'] == True"
                 tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
                 <label class="control-label"
@@ -139,6 +143,7 @@
                   <div class="controls">
                     <input type="text" class="input-xlarge" id="shipping.zipcode"
                       name="shipping.zipcode"
+                      required="required"
                       tal:attributes="value python:error and view.default_value(error) or ''" />
                       <div class="help-block error"
                         tal:condition="err_msg">
@@ -149,7 +154,7 @@
               </div>
 
               <div class="control-group field"
-                tal:define="error errors/fullname | nothing;
+                tal:define="error errors/shipping.address1 | nothing;
                             err_msg python:error and error['active'] == True"
                 tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
                 <label class="control-label"
@@ -159,6 +164,7 @@
                     <input type="text" class="input-xlarge"
                       id="shipping.address1"
                       name="shipping.address1"
+                      required="required"
                       tal:attributes="value python:error and view.default_value(error) or ''" />
                       <div class="help-block error"
                         tal:condition="err_msg">
@@ -169,7 +175,7 @@
               </div>
 
               <div class="control-group field"
-                tal:define="error errors/fullname | nothing;
+                tal:define="error errors/shipping.address2 | nothing;
                             err_msg python:error and error['active'] == True"
                 tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
                 <label class="control-label"
@@ -188,7 +194,7 @@
               </div>
 
               <div class="control-group field"
-                tal:define="error errors/fullname | nothing;
+                tal:define="error errors/shipping.country | nothing;
                             err_msg python:error and error['active'] == True"
                 tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
                 <label class="control-label"
@@ -198,6 +204,7 @@
                     <select class="input-xlarge"
                       id="shipping.country"
                       name="shipping.country"
+                      required="required"
                       tal:attributes="value python:error and view.default_value(error) or ''">
                       <option value="Germany" i18n:translate="">Germany</option>
                       <tal:block tal:repeat="country view/eu_countries">
@@ -221,7 +228,7 @@
 
               <div class="details" id="checkout-address-billing">
                 <div class="control-group field"
-                  tal:define="error errors/fullname | nothing;
+                  tal:define="error errors/billing.city | nothing;
                               err_msg python:error and error['active'] == True"
                   tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
                   <label class="control-label"
@@ -241,7 +248,7 @@
                 </div>
 
                 <div class="control-group field"
-                  tal:define="error errors/fullname | nothing;
+                  tal:define="error errors/billing.zipcode | nothing;
                               err_msg python:error and error['active'] == True"
                   tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
                   <label class="control-label"
@@ -261,7 +268,7 @@
                 </div>
 
                 <div class="control-group field"
-                  tal:define="error errors/fullname | nothing;
+                  tal:define="error errors/billing.address1 | nothing;
                               err_msg python:error and error['active'] == True"
                   tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
                   <label class="control-label"
@@ -281,7 +288,7 @@
                 </div>
 
                 <div class="control-group field"
-                  tal:define="error errors/fullname | nothing;
+                  tal:define="error errors/billing.address2 | nothing;
                               err_msg python:error and error['active'] == True"
                   tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
                   <label class="control-label"
@@ -302,7 +309,7 @@
                 </div>
 
                 <div class="control-group field"
-                  tal:define="error errors/fullname | nothing;
+                  tal:define="error errors/billing.country | nothing;
                               err_msg python:error and error['active'] == True"
                   tal:attributes="class python:err_msg and 'control-group error' or 'control-group'">
                   <label class="control-label"
@@ -370,7 +377,7 @@
           </tr>
           <tr tal:condition="not:view/total_is_zero">
             <td colspan="3" />
-            <td colspan="1" i18n:translate="">Shipping</td>
+            <td colspan="1" i18n:translate="">Shipping (to Germany)</td>
             <td>
               <span tal:content="view/cart_shipping" />
             </td>

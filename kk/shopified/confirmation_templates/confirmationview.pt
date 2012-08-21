@@ -20,7 +20,7 @@
       i18n:translate="">Thank you!</h1>
 
     <p class="documentDescription" i18n:translate="">
-      Your payment has been successfully processed.</p>
+      Your order has been successfully processed.</p>
 
     <div id="content-core">
 
@@ -32,7 +32,7 @@
 
           <p>
             <span i18n:translate="">If you have any questions about your payment, please</span>
-              <a tal:attributes="href string:${context/portal_url}/contact-us"
+              <a tal:attributes="href string:${context/portal_url}/contact-info"
                 i18n:translate="">
                 contact us</a>.</p>
 

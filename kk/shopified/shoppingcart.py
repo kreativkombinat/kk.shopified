@@ -1,3 +1,4 @@
+import json
 from five import grok
 from Acquisition import aq_inner
 from AccessControl import Unauthorized
@@ -33,6 +34,8 @@ class ShoppingCartView(grok.View):
                                 name=u"plone_portal_state")
         self.portal_url = pstate.portal_url()
         self.uuid = IUUID(context, None)
+        unwanted = ('_authenticator', 'form.button.Submit',
+                    'form.button.Clear')
         if 'form.button.Clear' in self.request:
             authenticator = getMultiAdapter((context, self.request),
                                             name=u"authenticator")
@@ -47,19 +50,24 @@ class ShoppingCartView(grok.View):
             self.errors = {}
             item = self.request.get('item.uuid', None)
             quantity = self.request.get('item.quantity', None)
-            if quantity is None:
-                self.errors['item.quantity'] = _(u"Quantity must be given")
-            else:
-                idx = 0
-                updater = self.update_cart()  # implement this one
-                cartitem = updater(item, quantity)
-                if cartitem:
-                    idx += 1
-                    IStatusMessage(self.request).addStatusMessage(
-                        _(u"%s cart items successfully updated") % idx,
-                        type="info")
-                redirect_url = self.context_url() + '/@@cart'
-                return self.request.response.redirect(redirect_url)
+            form = self.request.form
+            idx = 0
+            for item in form:
+                if item not in unwanted:
+                    fieldname = item.split('.')
+                    uuid = fieldname[0]
+                    quantity = form[item]
+                    if quantity is None or quantity is '':
+                        self.errors[item] = _(u"Quantity must be given")
+                    else:
+                        updater = getUtility(ICartUpdaterUtility)
+                        updater.add(uuid, quantity)
+                        idx += 1
+            IStatusMessage(self.request).add(
+                _(u"%s cart items successfully updated") % idx,
+                type="info")
+            redirect_url = self.context_url + '/@@cart'
+            return self.request.response.redirect(redirect_url)
 
     def cart(self):
         cart = get_cart()
@@ -75,14 +83,17 @@ class ShoppingCartView(grok.View):
             info['image_tag'] = self.image_tag(product)
             info['url'] = product.absolute_url()
             info['price'] = product.price
+            info['shipping'] = product.shipping_price
             info['price_pretty'] = format_price(product.price)
-            total = quantity * int(product.price)
+            total = int(quantity) * product.price
             info['price_total'] = format_price(total)
             data.append(info)
         return data
 
     def has_cart(self):
         cart = get_cart()
+        if 'txn_id' in cart:
+            return False
         return len(cart) > 0
 
     def cart_total(self):
@@ -91,7 +102,7 @@ class ShoppingCartView(grok.View):
             value = item['price']
             value = value * int(item['quantity'])
             total = total + value
-        return total
+        return format_price(total)
 
     def total_is_zero(self):
         return self.cart_total() <= 0
@@ -181,8 +192,39 @@ class CartClear(grok.View):
         IStatusMessage(self.request).addStatusMessage(
             _(u"Remove item from cart executed. This is not yet implemented"),
             type="info")
-        redirect_url = self.context_url() + '/@@cart'
+        redirect_url = self.context_url + '/@@cart'
         return self.request.response.redirect(redirect_url)
 
     def render(self):
         return ''
+
+
+class CartJSONView(grok.View):
+    grok.context(IContentish)
+    grok.require('zope2.View')
+    grok.name('cart-json-view')
+
+    def render(self):
+        return json.dumps(self.cart())
+
+    def cart(self):
+        cart = get_cart()
+        data = []
+        for item in cart:
+            info = {}
+            product = uuidToObject(item)
+            quantity = cart[item]
+            info['uuid'] = item
+            info['quantity'] = quantity
+            if product:
+                info['title'] = product.Title()
+                info['description'] = product.Description()
+                info['image_tag'] = self.image_tag(product)
+                info['url'] = product.absolute_url()
+                info['price'] = product.price
+                info['shipping'] = product.shipping_price
+                info['price_pretty'] = format_price(product.price)
+                total = int(quantity) * product.price
+                info['price_total'] = format_price(total)
+            data.append(info)
+        return data

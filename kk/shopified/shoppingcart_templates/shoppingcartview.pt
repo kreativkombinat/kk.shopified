@@ -44,11 +44,6 @@
           <tr tal:repeat="item cart">
             <td>
               <input
-                type="hidden" class="span6"
-                tal:define="product_uid item/uuid"
-                tal:attributes="name product_uid;
-                                value product_uid" />
-              <input
                 type="text" class="span1" size="2"
                 tal:define="productuid item/uuid"
                 tal:attributes="name python:productuid + '.quantity';
@@ -94,7 +89,7 @@
             type="submit"
             name="form.button.Clear"
             i18n:translate=""
-            value="Warenkork leeren" />
+            value="Warenkorb leeren" />
 
         <div class="xwell" tal:condition="not:view/total_is_zero">
           <div class="btn-toolbar">

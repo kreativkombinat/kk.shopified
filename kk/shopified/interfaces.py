@@ -59,6 +59,12 @@ class IShopifiedSettings(Interface):
         values=[_(u"Sandbox"), _(u"Production")],
         required=True,
     )
+    shop_email = schema.TextLine(
+        title=_(u"Shop E-mail"),
+        description=_(u"Enter shop email address that will recieve order "
+                      u"mail from customers"),
+        required=True,
+    )
     shop_url = schema.TextLine(
         title=_(u"Shop URL"),
         description=_(u"Please enter relative URL to the shop content"),

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-08-01 15:45+0000\n"
+"POT-Creation-Date: 2012-08-09 14:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,61 +25,61 @@ msgstr ""
 msgid "${item_count} items in the shopping cart"
 msgstr ""
 
-#: ./../shoppingcart.py:59
+#: ./../shoppingcart.py:67
 msgid "%s cart items successfully updated"
 msgstr ""
 
-#: ./../shoppingcart_templates/shoppingcartview.pt:34
+#: ./../shoppingcart_templates/shoppingcartview.pt:40
 msgid "Actions"
 msgstr ""
 
-#: ./../shoppingcart.py:126
+#: ./../shoppingcart.py:137
 msgid "Add item to cart executed: %s %s "
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:154
+#: ./../checkout_templates/checkoutview.pt:160
 msgid "Address 1"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:174
+#: ./../checkout_templates/checkoutview.pt:181
 msgid "Address 2"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:104
+#: ./../checkout_templates/checkoutview.pt:108
 msgid "Address Information"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:343
-#: ./../shoppingcart_templates/shoppingcartview.pt:29
+#: ./../checkout_templates/checkoutview.pt:352
+#: ./../shoppingcart_templates/shoppingcartview.pt:35
 msgid "Amount"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:219
+#: ./../checkout_templates/checkoutview.pt:228
 msgid "Billing Address"
 msgstr ""
 
 #: ./../checkout_templates/checkoutview.pt:13
-#: ./../shoppingcart_templates/shoppingcartview.pt:96
+#: ./../shoppingcart_templates/shoppingcartview.pt:97
 msgid "Checkout"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:116
+#: ./../checkout_templates/checkoutview.pt:120
 msgid "City"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:87
+#: ./../checkout_templates/checkoutview.pt:90
 msgid "Comments"
 msgstr ""
 
-#: ./../shoppingcart_templates/shoppingcartview.pt:102
+#: ./../shoppingcart_templates/shoppingcartview.pt:23
 msgid "Continue shopping"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:193
+#: ./../checkout_templates/checkoutview.pt:201
 msgid "Country"
 msgstr ""
 
-#: ./../shoppingcart_templates/shoppingcartview.pt:65
+#: ./../shoppingcart_templates/shoppingcartview.pt:66
 msgid "Delete"
 msgstr ""
 
@@ -87,53 +87,53 @@ msgstr ""
 msgid "Do you really want to delete ${DYNAMIC_CONTENT} from the shopping cart?"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:68
+#: ./../checkout_templates/checkoutview.pt:70
 msgid "E-Mail"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:207
+#: ./../checkout_templates/checkoutview.pt:216
 msgid "EU Country"
 msgstr ""
 
-#: ./../interfaces.py:69
+#: ./../interfaces.py:75
 msgid "Email Order"
+msgstr ""
+
+#: ./../interfaces.py:64
+msgid "Enter shop email address that will recieve order mail from customers"
 msgstr ""
 
 #: ./../interfaces.py:53
 msgid "Enter your PayPal sandbox account key. This is usually an E-mail address"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:27
+#: ./../checkout_templates/checkoutview.pt:28
 msgid "Fullname"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:201
+#: ./../checkout_templates/checkoutview.pt:210
 msgid "Germany"
-msgstr ""
-
-#: ./../checkout_templates/checkoutview.pt:99
-msgid "Helptext for the field"
 msgstr ""
 
 #: ./../confirmation_templates/confirmationview.pt:34
 msgid "If you have any questions about your payment, please"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:344
-#: ./../shoppingcart_templates/shoppingcartview.pt:30
+#: ./../checkout_templates/checkoutview.pt:353
+#: ./../shoppingcart_templates/shoppingcartview.pt:36
 msgid "Image"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:345
-#: ./../shoppingcart_templates/shoppingcartview.pt:31
+#: ./../checkout_templates/checkoutview.pt:354
+#: ./../shoppingcart_templates/shoppingcartview.pt:37
 msgid "Item"
 msgstr ""
 
-#: ./../shoppingcart.py:149
+#: ./../shoppingcart.py:160
 msgid "Item could not be removed from the shopping cart. Please try again. If the error should persist, please contact the shop owner"
 msgstr ""
 
-#: ./../shoppingcart.py:156
+#: ./../shoppingcart.py:167
 msgid "Item has been removed from the shopping cart"
 msgstr ""
 
@@ -141,7 +141,7 @@ msgstr ""
 msgid "Notice"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:338
+#: ./../checkout_templates/checkoutview.pt:347
 msgid "Order Summary"
 msgstr ""
 
@@ -157,28 +157,32 @@ msgstr ""
 msgid "Paypal Website Payments Server"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:22
+#: ./../checkout_templates/checkoutview.pt:23
 msgid "Personal Details"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:50
+#: ./../checkout_templates/checkoutview.pt:51
 msgid "Phone"
 msgstr ""
 
-#: ./../interfaces.py:70
+#: ./../interfaces.py:76
 msgid "Please enter optional email order url (relative to the site root. Leave empty for the default form"
 msgstr ""
 
-#: ./../interfaces.py:64
+#: ./../interfaces.py:70
 msgid "Please enter relative URL to the shop content"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:105
+#: ./../checkout_templates/checkoutview.pt:109
 msgid "Please enter the shipping address"
 msgstr ""
 
 #: ./../interfaces.py:47
 msgid "Please enter your PayPal merchant account key"
+msgstr ""
+
+#: ./../checkout.py:146
+msgid "Poleworkx Shop: Anfrage von %s"
 msgstr ""
 
 #: ./../confirmation_templates/confirmationview.pt:14
@@ -189,11 +193,11 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: ./../shoppingcart.py:51
+#: ./../shoppingcart.py:61
 msgid "Quantity must be given"
 msgstr ""
 
-#: ./../shoppingcart.py:182
+#: ./../shoppingcart.py:193
 msgid "Remove item from cart executed. This is not yet implemented"
 msgstr ""
 
@@ -201,15 +205,19 @@ msgstr ""
 msgid "Sandbox"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:372
-msgid "Shipping"
+#: ./../checkout_templates/checkoutview.pt:381
+msgid "Shipping (to Germany)"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:110
+#: ./../checkout_templates/checkoutview.pt:114
 msgid "Shipping Address"
 msgstr ""
 
 #: ./../interfaces.py:63
+msgid "Shop E-mail"
+msgstr ""
+
+#: ./../interfaces.py:69
 msgid "Shop URL"
 msgstr ""
 
@@ -227,8 +235,8 @@ msgstr ""
 msgid "Shopping Cart"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:386
-#: ./../shoppingcart_templates/shoppingcartview.pt:73
+#: ./../checkout_templates/checkoutview.pt:395
+#: ./../shoppingcart_templates/shoppingcartview.pt:74
 msgid "TOTAL"
 msgstr ""
 
@@ -236,12 +244,12 @@ msgstr ""
 msgid "Thank you!"
 msgstr ""
 
-#: ./../checkout.py:50
+#: ./../checkout.py:63
 msgid "This field is required"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:347
-#: ./../shoppingcart_templates/shoppingcartview.pt:33
+#: ./../checkout_templates/checkoutview.pt:356
+#: ./../shoppingcart_templates/shoppingcartview.pt:39
 msgid "Total"
 msgstr ""
 
@@ -249,20 +257,24 @@ msgstr ""
 msgid "Transaction ID: ${txn_id}"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:346
-#: ./../shoppingcart_templates/shoppingcartview.pt:32
+#: ./../checkout_templates/checkoutview.pt:355
+#: ./../shoppingcart_templates/shoppingcartview.pt:38
 msgid "Unit Price"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:379
+#: ./../checkout_templates/checkoutview.pt:388
 msgid "VAT (19%)"
 msgstr ""
 
-#: ./../confirmation_templates/confirmationview.pt:22
-msgid "Your payment has been successfully processed."
+#: ./../checkout.py:176
+msgid "Your email has been forwarded."
 msgstr ""
 
-#: ./../shoppingcart.py:43
+#: ./../confirmation_templates/confirmationview.pt:22
+msgid "Your order has been successfully processed."
+msgstr ""
+
+#: ./../shoppingcart.py:46
 msgid "Your shopping cart has successfully been purged"
 msgstr ""
 
@@ -270,7 +282,7 @@ msgstr ""
 msgid "Your shopping cart is empty"
 msgstr ""
 
-#: ./../checkout_templates/checkoutview.pt:135
+#: ./../checkout_templates/checkoutview.pt:140
 msgid "Zipcode"
 msgstr ""
 
