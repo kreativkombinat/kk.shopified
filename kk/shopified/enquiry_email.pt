@@ -24,7 +24,7 @@ Kommentare:
 <span tal:replace="options/comment | string:Keine Angabe" tal:omit-tag="" />
 
 
-Versandadresse
+Rechnungsadresse
 --------------
 
 Ort: <span tal:content="options/shipping.city | nothing" tal:omit-tag="" />

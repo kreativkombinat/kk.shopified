@@ -42,8 +42,8 @@ class CheckoutView(grok.View):
         unwanted = ('_authenticator', 'form.button.Submit',
                     'form.button.Enquiry')
         required = self.required_fields()
-        if ('form.button.Submit' in self.request
-            or 'form.button.Enquiry' in self.request):
+        if ('form.button.Submit' in self.request or
+                'form.button.Enquiry' in self.request):
             form = self.request.form
             authenticator = getMultiAdapter((context, self.request),
                                             name=u"authenticator")
@@ -80,7 +80,7 @@ class CheckoutView(grok.View):
 
     def _process_paypal(self, data):
         pstate = getMultiAdapter((self.context, self.request),
-                                  name=u"plone_portal_state")
+                                 name=u"plone_portal_state")
         portal_url = pstate.portal_url()
         payment_settings = self._payment_settings()
         shop_url = payment_settings['shop_url']
@@ -131,7 +131,7 @@ class CheckoutView(grok.View):
 
     def _send_enquiry(self, data):
         pstate = getMultiAdapter((self.context, self.request),
-                                  name=u"plone_portal_state")
+                                 name=u"plone_portal_state")
         portal_url = pstate.portal_url()
         settings = self._payment_settings()
         txnid = self._generate_txn_id()
@@ -256,7 +256,7 @@ class CheckoutView(grok.View):
 
     def _calculate_cart_net(self, shipping):
         total = self.cart_total()
-        net = total + shipping
+        net = total
         return net
 
     def _calculate_cart_vat(self, net):
@@ -275,9 +275,9 @@ class CheckoutView(grok.View):
 
     def _generate_txn_id(self):
         key = base64.b64encode(
-                hashlib.sha256(str(random.getrandbits(256))
-                ).digest(), random.choice([
-                'rA', 'aZ', 'gQ', 'hH', 'hG', 'aR', 'DD'])).rstrip('==')
+            hashlib.sha256(str(random.getrandbits(256))).digest(),
+            random.choice(['rA', 'aZ', 'gQ', 'hH', 'hG', 'aR', 'DD'])).rstrip(
+                '==')
         return key
 
     def create_plaintext_message(self, text):
@@ -287,7 +287,7 @@ class CheckoutView(grok.View):
         plain_text_maxcols = 72
         textout = cStringIO.StringIO()
         formtext = formatter.AbstractFormatter(formatter.DumbWriter(
-                        textout, plain_text_maxcols))
+            textout, plain_text_maxcols))
         parser = HTMLParser(formtext)
         parser.feed(text)
         parser.close()
@@ -308,7 +308,7 @@ class CheckoutView(grok.View):
 
     def default_value(self, error):
         value = ''
-        if error['active'] == False:
+        if error['active'] is False:
             value = error['msg']
         return value
 
@@ -327,8 +327,9 @@ class CheckoutView(grok.View):
 
     def eu_countries(self):
         countries = ('Belgium', 'Bulgaria', 'Czech Republic', 'Denmark',
-        'Estonia', 'Ireland', 'Greece', 'Spain', 'France', 'Italy', 'Cyprus',
-        'Latvia', 'Lithuania', 'Luxembourg', 'Hungary', 'Malta', 'Netherlands',
-        'Austria', 'Poland', 'Portugal', 'Romania', 'Slovenia', 'Slovakia',
-        'Finland', 'Sweden', 'United Kingdom')
+                     'Estonia', 'Ireland', 'Greece', 'Spain', 'France',
+                     'Italy', 'Cyprus', 'Latvia', 'Lithuania', 'Luxembourg',
+                     'Hungary', 'Malta', 'Netherlands', 'Austria', 'Poland',
+                     'Portugal', 'Romania', 'Slovenia', 'Slovakia', 'Finland',
+                     'Sweden', 'United Kingdom')
         return countries
