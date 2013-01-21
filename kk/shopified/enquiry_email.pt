@@ -34,7 +34,8 @@ Strasse und Hausnummer:
 <span tal:replace="options/shipping.address2 | string:Keine Angabe" tal:omit-tag="" />
 Land: <span tal:content="options/shipping.country | string:Keine Angabe" tal:omit-tag="" />
 
-Versandadresse
+
+Rechnungsadresse
 --------------
 
 Ort: <span tal:content="options/billing.city | nothing" tal:omit-tag="" />
