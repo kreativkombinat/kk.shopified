@@ -24,8 +24,8 @@ Kommentare:
 <span tal:replace="options/comment | string:Keine Angabe" tal:omit-tag="" />
 
 
-Versandadresse
---------------
+Lieferadresse
+-------------
 
 Ort: <span tal:content="options/shipping.city | nothing" tal:omit-tag="" />
 Postleitzahl: <span tal:content="options/shipping.zipcode | nothing" tal:omit-tag="" />
@@ -34,8 +34,8 @@ Strasse und Hausnummer:
 <span tal:replace="options/shipping.address2 | string:Keine Angabe" tal:omit-tag="" />
 Land: <span tal:content="options/shipping.country | string:Keine Angabe" tal:omit-tag="" />
 
-Lieferadresse
--------------
+Versandadresse
+--------------
 
 Ort: <span tal:content="options/billing.city | nothing" tal:omit-tag="" />
 Postleitzahl: <span tal:content="options/billing.zipcode | nothing" tal:omit-tag="" />
